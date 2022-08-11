@@ -16,23 +16,23 @@ main {
 }
 
 .section-1 {
-  background-color: #d1c4e9;
+  background-color: #000000;
 }
 
 .section-2 {
-  background-color: #c8e6c9;
+  background-color: #000000;
 }
 
 .section-3 {
-  background-color: #b3e5fc;
+  background-color: #000000;
 }
 
 .section-4 {
-  background-color: #f0f4c3;
+  background-color: #000000;
 }
 
 .section-5 {
-  background-color: #ffccbc;
+  background-color: #000000;
 }
 
 body {
@@ -46,6 +46,6 @@ body {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-View SCSS Code
+
 
 
