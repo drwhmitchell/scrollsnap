@@ -16,23 +16,31 @@
   <body onload="initializePage()">
 
     <main>
+
       <section class="section section-1">
         <div class="question">What is your <span id="focus-word">AGE</span>?</div>
         <div id="answer-1">50</div>
-<!--        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
--->
-        <Input class="slider" id="myRange" type="range" name "" value="50" min="1" max="100" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
-    </div>
-    <script type="text/javascript">
-        function rangeSlide(value) {
+          <Input class="slider" type="range" name "" value="50" min="1" max="100" onChange="rangeSlide1(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        </div>
+        <script type="text/javascript">
+          function rangeSlide1(value) {
             document.getElementById('answer-1').innerHTML = value;
-        }
-    </script>
+          }
+        </script>
+      </section>
 
-      </section>
       <section class="section section-2">
-        <img src="survey2-alt.png" style="width:400px">
+        <div class="question">What did you <span id="focus-word">RETIRE/WAKE-UP</span>?</div>
+        <div id="answer-2">6</div>
+          <Input class="slider" type="range" name "" value="6" min="1" max="12" onChange="rangeSlide2(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        </div>
+        <script type="text/javascript">
+          function rangeSlide2(value) {
+            document.getElementById('answer-2').innerHTML = value;
+          }
+        </script>
       </section>
+
       <section class="section section-3">
         <img src="survey3-alt.png" style="width:400px">
       </section>

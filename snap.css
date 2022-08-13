@@ -35,6 +35,17 @@ main {
 
 }
 
+#answer-2 {
+  color: #eab16f;
+  font-family: Nunito, sans-serif;
+  font-size: 3em;
+  width: 90%; /* Full-width */
+  text-align: center;
+  padding-bottom: 1em;
+  font-weight: bold;
+
+}
+
 #focus-word {
   color: #5cd5eb;
 
@@ -46,6 +57,7 @@ main {
 }
 
 .section-2 {
+  background-image: url("survey1-alt.png");
   background-color: #000000;
 }
 
