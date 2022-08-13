@@ -16,13 +16,27 @@ main {
   scroll-snap-align: start;
 }
 
-h2 {
+.question {
   color: #ffffff;
   font-family: Nunito, sans-serif;
   font-size: 3em;
   width: 90%; /* Full-width */
   text-align: center;
+}
 
+#answer-1 {
+  color: #eab16f;
+  font-family: Nunito, sans-serif;
+  font-size: 3em;
+  width: 90%; /* Full-width */
+  text-align: center;
+  padding-bottom: 1em;
+  font-weight: bold;
+
+}
+
+#focus-word {
+  color: #5cd5eb;
 
 }
 
