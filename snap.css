@@ -4,18 +4,30 @@ main {
   -ms-scroll-snap-type: y mandatory;
       scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
+
 }
 
 .section {
   height: 100vh;
-  display: flex;
+  display: flex; 
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
   scroll-snap-align: start;
 }
 
+h2 {
+  color: #ffffff;
+  font-family: Nunito, sans-serif;
+  font-size: 3em;
+  width: 90%; /* Full-width */
+  text-align: center;
+
+
+}
+
 .section-1 {
+  background-image: url("survey1-alt.png");
   background-color: #000000;
 }
 
@@ -47,5 +59,53 @@ body {
   padding-right: 1rem;
 }
 
+/* Slider SHIT */
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
 
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 80%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  border-radius: 100%;
+
+  margin-top: 0rem; /* Centers thumb on the track */
+
+  background-color: #5cd5eb;
+  height: 2.5rem;
+  width: 2.5rem;
+
+  /*
+  width: 25px; 
+  height: 25px; 
+  background: #04AA6D; 
+  cursor: pointer; 
+  */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
 
