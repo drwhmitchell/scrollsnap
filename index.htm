@@ -30,20 +30,29 @@
       </section>
 
       <section class="section section-2">
-        <div class="question">What did you <span id="focus-word">RETIRE/WAKE-UP</span>?</div>
-        <div id="answer-2">6</div>
-          <Input class="slider" type="range" name "" value="6" min="1" max="12" onChange="rangeSlide2(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        <div class="question">When were you <span id="focus-word">IN BED/ASLEEP</span>?</div>
+        <div id="answer-2">10PM</div>
+          <Input class="slider" type="range" name "" value="10" min="1" max="12" onChange="rangeSlide2(this.value)" onmousemove="rangeSlide(this.value)"></Input>
         </div>
         <script type="text/javascript">
           function rangeSlide2(value) {
-            document.getElementById('answer-2').innerHTML = value;
+            document.getElementById('answer-2').innerHTML = value+"PM";
           }
         </script>
       </section>
 
       <section class="section section-3">
-        <img src="survey3-alt.png" style="width:400px">
+        <div class="question">When did you <span id="focus-word">WAKE/GET UP</span>?</div>
+        <div id="answer-3">6AM</div>
+          <Input class="slider" type="range" name "" value="6" min="1" max="12" onChange="rangeSlide3(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        </div>
+        <script type="text/javascript">
+          function rangeSlide3(value) {
+            document.getElementById('answer-3').innerHTML = value + "AM";
+          }
+        </script>
       </section>
+
       <section class="section section-4">
         <img src="survey4-alt.png" style="width:400px">
       </section>
