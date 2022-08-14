@@ -24,29 +24,7 @@ main {
   text-align: center;
 }
 
-#answer-1 {
-  color: #eab16f;
-  font-family: Nunito, sans-serif;
-  font-size: 3em;
-  width: 90%; /* Full-width */
-  text-align: center;
-  padding-bottom: 1em;
-  font-weight: bold;
-
-}
-
-#answer-2 {
-  color: #eab16f;
-  font-family: Nunito, sans-serif;
-  font-size: 3em;
-  width: 90%; /* Full-width */
-  text-align: center;
-  padding-bottom: 1em;
-  font-weight: bold;
-
-}
-
-#answer-3 {
+.answer {
   color: #eab16f;
   font-family: Nunito, sans-serif;
   font-size: 3em;
@@ -63,24 +41,51 @@ main {
 }
 
 .section-1 {
-  background-image: url("survey1-alt.png");
+  background-image: url("img/survey1.png");
   background-color: #000000;
 }
 
 .section-2 {
-  background-image: url("survey1-alt.png");
+  background-image: url("img/survey2.png");
   background-color: #000000;
 }
 
 .section-3 {
+  background-image: url("img/survey3.png");
   background-color: #000000;
 }
 
 .section-4 {
+  background-image: url("img/survey4.png");
   background-color: #000000;
 }
 
 .section-5 {
+  background-image: url("img/survey5.png");
+  background-color: #000000;
+}
+
+.section-6 {
+  background-image: url("img/survey6.png");
+  background-color: #000000;
+}
+
+.section-7 {
+  background-image: url("img/survey7.png");
+  background-color: #000000;
+}
+
+.section-8 {
+  background-image: url("img/survey8.png");
+  background-color: #000000;
+}
+
+.section-9 {
+  background-image: url("img/survey9.png");
+  background-color: #000000;
+}
+
+.section-10 {
   background-color: #000000;
 }
 
@@ -145,4 +150,5 @@ body {
   background: #04AA6D; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
+
 
