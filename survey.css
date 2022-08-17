@@ -7,6 +7,17 @@ main {
 
 }
 
+button {
+  color: #eacba9;
+  background-color: #5d87da60;
+  font-family: Nunito, sans-serif;
+  font-size: 2em;
+  text-align: center;
+  font-weight: bold;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
 .section {
   height: 100vh;
   display: flex; 
@@ -41,18 +52,6 @@ main {
 
 }
 
-button {
-  width: 20em;
-  height: 4em;
-  color: #5cd5eb;
-  initial-value: "Press Me";
-}
-
-#analyze-button {
-  width: 10em;
-  height: 2em;
-  color: #5cd5eb;
-}
 
 #section-1 {
   background-image: url("img/survey1.png");

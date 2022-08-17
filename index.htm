@@ -4,7 +4,7 @@
   <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="snap.css">
+    <link rel="stylesheet" href="survey.css">
      <title>Test SnapScroll Page</title>
 	  
      <!-- CSS for Bootstrap 
@@ -16,19 +16,29 @@
   <body onload="initializePage()">
 
     <main>
+      <div id="introduction">
+        <section class="section" id="section-1">
+          <div class="question">Which <span id="focus-word">Survey</span> would you like to take?</div>
+          <div class="answer" id="answer-0"></div>
+            <button type="button" onclick="RunSurvey(0)">Survey #1</button>
+            <br>
+            <button type="button" onclick="RunSurvey(1)">Survey #2</button>
+        </section>
+      </div>
+
       <div id="sleep-survey">
       </div>
 
-      <div id="sleep-analysis">
-<!--
-        <section class="section" id="section-10">
-          <div class="question"><span id="focus-word">CALCULATING YOUR SLEEP...</span></div>
-          <br>
-          <br>
-          <Input class="button" id="analyze-button" name=""></Input>
-          <img src="img/computing-results.gif">
+      <div id="analysis-go">
+        <section class="section">
+          <div class="question"><span id="focus-word">THANK YOU!</span> Are you ready see your <span id="focus-word">Sleep Analysis?</span></div>
+          <div class="answer" id="sleep-analysis-go"></div>
+            <button type="button" onclick="RunAnalysis()">Let's Go!</button>
+            <br>
         </section>
--->
+      </div>
+
+      <div id="sleep-analysis">
       </div>
 
     </main>
