@@ -14,6 +14,7 @@ main {
   justify-content: center;
   align-items: center;
   scroll-snap-align: start;
+  background-color: #000000;
 }
 
 .question {
@@ -40,54 +41,61 @@ main {
 
 }
 
-.section-1 {
+button {
+  width: 20em;
+  height: 4em;
+  color: #5cd5eb;
+  initial-value: "Press Me";
+}
+
+#analyze-button {
+  width: 10em;
+  height: 2em;
+  color: #5cd5eb;
+}
+
+#section-1 {
   background-image: url("img/survey1.png");
-  background-color: #000000;
 }
 
-.section-2 {
+#section-2 {
   background-image: url("img/survey2.png");
-  background-color: #000000;
 }
 
-.section-3 {
+#section-3 {
   background-image: url("img/survey3.png");
-  background-color: #000000;
 }
 
-.section-4 {
+#section-4 {
   background-image: url("img/survey4.png");
-  background-color: #000000;
 }
 
-.section-5 {
+#section-5 {
   background-image: url("img/survey5.png");
-  background-color: #000000;
 }
 
-.section-6 {
+#section-6 {
   background-image: url("img/survey6.png");
-  background-color: #000000;
 }
 
-.section-7 {
+#section-7 {
   background-image: url("img/survey7.png");
-  background-color: #000000;
 }
 
-.section-8 {
+#section-8 {
   background-image: url("img/survey8.png");
-  background-color: #000000;
 }
 
-.section-9 {
+#section-9 {
   background-image: url("img/survey9.png");
-  background-color: #000000;
 }
 
-.section-10 {
+#section-10 {
   background-color: #000000;
+
 }
+
+
 
 body {
   font-family: Lato, sans-serif;
