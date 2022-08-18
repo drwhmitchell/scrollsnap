@@ -5,7 +5,7 @@ const surveys = [
                     [
                         {question: "What is your AGE?", focus:"AGE", backImage: "survey1.png", min: 10, max:100, default:50, answer:50, warpFcn: dummyWarpFcn},
                         {question: "When were you IN-BED/ ASLEEP?", focus:"IN-BED/ ASLEEP", backImage: "survey2.png", min: 0, max:12, default:10, answer:10, warpFcn: dummyWarpFcn},
-                        {question: "When did you WAKE/GETUP?", focus:"WAKE/GETUP", backImage: "survey3.png", min: 0, max:12, default:6, answer:6, warpFcn: dummyWarpFcn},
+                        {question: "When did you WAKE/GETUP?", focus:"WAKE/GETUP", backImage: "wake-up.gif", min: 0, max:12, default:6, answer:6, warpFcn: dummyWarpFcn},
                         {question: "How often were you AWOKEN?", focus:"AWOKEN", backImage: "survey4.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
                         {question: "How long did you STAY AWAKE?", focus:"STAY AWAKE", backImage: "survey5.png", min: 0, max:10, default:7, answer:7, warpFcn: dummyWarpFcn},
                         {question: "How much did you DREAM?", focus:"DREAM", backImage: "survey6.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
