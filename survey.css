@@ -53,49 +53,6 @@ button {
 }
 
 
-#section-1 {
-  background-image: url("img/survey1.png");
-}
-
-#section-2 {
-  background-image: url("img/survey2.png");
-}
-
-#section-3 {
-  background-image: url("img/survey3.png");
-}
-
-#section-4 {
-  background-image: url("img/survey4.png");
-}
-
-#section-5 {
-  background-image: url("img/survey5.png");
-}
-
-#section-6 {
-  background-image: url("img/survey6.png");
-}
-
-#section-7 {
-  background-image: url("img/survey7.png");
-}
-
-#section-8 {
-  background-image: url("img/survey8.png");
-}
-
-#section-9 {
-  background-image: url("img/survey9.png");
-}
-
-#section-10 {
-  background-color: #000000;
-
-}
-
-
-
 body {
   font-family: Lato, sans-serif;
 }
@@ -136,19 +93,14 @@ body {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   border-radius: 100%;
-
   margin-top: 0rem; /* Centers thumb on the track */
-
   background-color: #5cd5eb;
   height: 2.5rem;
   width: 2.5rem;
+}
 
-  /*
-  width: 25px; 
-  height: 25px; 
-  background: #04AA6D; 
-  cursor: pointer; 
-  */
+.slider::-webkit-slider-thumb-disabled {
+  display: none; /* Don't display until user touches range bar */
 }
 
 .slider::-moz-range-thumb {
