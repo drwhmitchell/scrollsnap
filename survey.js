@@ -3,26 +3,30 @@
 
 const surveys = [
                     [
-                        {question: "What is your AGE?", focus:"AGE", backImage: "survey1.png", min: 10, max:100, default:50, answer:50},
-                        {question: "When were you IN-BED/ ASLEEP?", focus:"IN-BED/ ASLEEP", backImage: "survey2.png", min: 0, max:12, default:10, answer:10},
-                        {question: "When did you WAKE/GETUP?", focus:"WAKE/GETUP", backImage: "survey3.png", min: 0, max:12, default:6, answer:6},
-                        {question: "How often were you AWOKEN?", focus:"AWOKEN", backImage: "survey4.png", min: 0, max:10, default:5, answer:5},
-                        {question: "How long did you STAY AWAKE?", focus:"STAY AWAKE", backImage: "survey5.png", min: 0, max:10, default:7, answer:7},
-                        {question: "How much did you DREAM?", focus:"DREAM", backImage: "survey6.png", min: 0, max:10, default:5, answer:5},
-                        {question: "How do your MUSCLES FEEL?", focus:"MUSCLES FEEL", backImage: "survey7.png", min: 0, max:10, default:5, answer:5},
-                        {question: "How positive is your MOOD?", focus:"MOOD", backImage: "survey8.png", min: 0, max:10, default:5, answer:5},
-                        {question: "Assign and OVERALL SLEEP RATING", focus:"OVERALL SLEEP RATING", backImage: "survey9.png", min: 0, max:10, default:5, answer:5},
+                        {question: "What is your AGE?", focus:"AGE", backImage: "survey1.png", min: 10, max:100, default:50, answer:50, warpFcn: dummyWarpFcn},
+                        {question: "When were you IN-BED/ ASLEEP?", focus:"IN-BED/ ASLEEP", backImage: "survey2.png", min: 0, max:12, default:10, answer:10, warpFcn: dummyWarpFcn},
+                        {question: "When did you WAKE/GETUP?", focus:"WAKE/GETUP", backImage: "survey3.png", min: 0, max:12, default:6, answer:6, warpFcn: dummyWarpFcn},
+                        {question: "How often were you AWOKEN?", focus:"AWOKEN", backImage: "survey4.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "How long did you STAY AWAKE?", focus:"STAY AWAKE", backImage: "survey5.png", min: 0, max:10, default:7, answer:7, warpFcn: dummyWarpFcn},
+                        {question: "How much did you DREAM?", focus:"DREAM", backImage: "survey6.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "How do your MUSCLES FEEL?", focus:"MUSCLES FEEL", backImage: "survey7.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "How positive is your MOOD?", focus:"MOOD", backImage: "survey8.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "Assign and OVERALL SLEEP RATING", focus:"OVERALL SLEEP RATING", backImage: "survey9.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
                     ],
                     [
-                        {question: "How OLD are you?", focus:"OLD", backImage: "survey-generic.png", min: 10, max:100, default:50, answer:50},
-                        {question: "Time of IN-BED & ASLEEP?", focus:"IN-BED & ASLEEP", backImage: "survey-generic.png", min: 0, max:12, default:10, answer:10},
-                        {question: "Time of WAKE & GETUP?", focus:"WAKE & GETUP", backImage: "survey-generic.png", min: 0, max:12, default:6, answer:6},
-                        {question: "Frequency of WAKES?", focus:"WAKES", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5},
-                        {question: "Duration of WAKES?", focus:"WAKES", backImage: "survey-generic.png", min: 0, max:10, default:7, answer:7},
-                        {question: "Amount of DREAMING?", focus:"DREAMING", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5},
-                        {question: "Level of MUSCLE RELAXATION?", focus:"MUSCLE RELAXATION", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5},
-                        {question: "Relative MOOD?", focus:"MOOD", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5},
-                        {question: "Overall SLEEP RATING", focus:"SLEEP RATING", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5},
+                        {question: "How OLD are you?", focus:"OLD", backImage: "survey-generic.png", min: 10, max:100, default:50, answer:50, warpFcn: dummyWarpFcn},
+                        {question: "Time of IN-BED & ASLEEP?", focus:"IN-BED & ASLEEP", backImage: "survey-generic.png", min: 0, max:12, default:10, answer:10, warpFcn: dummyWarpFcn},
+                        {question: "Time of WAKE & GETUP?", focus:"WAKE & GETUP", backImage: "survey-generic.png", min: 0, max:12, default:6, answer:6, warpFcn: dummyWarpFcn},
+                        {question: "Frequency of WAKES?", focus:"WAKES", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "Duration of WAKES?", focus:"WAKES", backImage: "survey-generic.png", min: 0, max:10, default:7, answer:7, warpFcn: dummyWarpFcn},
+                        {question: "Amount of DREAMING?", focus:"DREAMING", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "Level of MUSCLE RELAXATION?", focus:"MUSCLE RELAXATION", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "Relative MOOD?", focus:"MOOD", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "Overall SLEEP RATING", focus:"SLEEP RATING", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                    ],
+                    [
+                        {question: "How good do you FEEL?", focus:"FEEL", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
+                        {question: "What's your overall SLEEP RATING?", focus:"SLEEP RATING", backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
                     ],
                 ];
 
@@ -30,6 +34,7 @@ function initializePage() {
     console.log("Initializing Page");
 
 }
+
 
 var gSurveyNum = 0;
 
@@ -87,6 +92,15 @@ function RunAnalysis() {
 function ComputeAnalysis(ansList) {
     console.log("Computing Results for Survey#" + gSurveyNum + " from " + JSON.stringify(ansList));
 
+    //  This is where the magic happens!   We successively apply all of the Warp functions associated
+    //  with each question in the survey and get a net result which is the final sleep arch!
+    netResult = surveys[gSurveyNum].reduce((accum, currentQ) => currentQ.warpFcn(accum, currentQ.answer), 0);
+    console.log("Net Result = " + netResult);
+}
+
+function dummyWarpFcn(accum, answer) {
+    console.log("Dummy warp function called with: " + answer);
+    return (accum + answer);
 }
 
 function rangeSlide(section, value, i) {
@@ -98,7 +112,6 @@ function rangeSlide(section, value, i) {
 // insert "<span id='focus-word'>" and a closing "<span>" around KEY in the SENTENCE
 function InsertFocus(sentence, key) {
      //   "What is your <span id='focus-word'>SEX</span>?</div></section>";
-
     const newSentence = sentence.replace(key, "<span id='focus-word'>" + key + "</span>");
     return newSentence;
 
