@@ -13,6 +13,7 @@ const surveys = [
                         {question: "How positive is your MOOD?", focus:"MOOD", backImage: "survey8.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
                         {question: "Assign and OVERALL SLEEP RATING", focus:"OVERALL SLEEP RATING", backImage: "survey9.png", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
                     ],
+  /*                  
                     [
                         {question: "What is your AGE?", focus:"AGE", backImage: "age-anim.gif", min: 10, max:100, default:50, answer:50, warpFcn: dummyWarpFcn},
                         {question: "When were you IN-BED/ ASLEEP?", focus:"IN-BED/ ASLEEP", backImage: "inbed-anim.gif", min: 0, max:12, default:10, answer:10, warpFcn: dummyWarpFcn},
@@ -24,6 +25,7 @@ const surveys = [
                         {question: "How positive is your MOOD?", focus:"MOOD", backImage: "mood-anim.gif", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
                         {question: "Assign and OVERALL SLEEP RATING", focus:"OVERALL SLEEP RATING", backImage: "rating-anim.gif", min: 0, max:10, default:5, answer:5, warpFcn: dummyWarpFcn},
                     ],
+*/
                     [
                         {question: "How OLD are you?", focus:"OLD", backImage: "survey-generic.png", min: 10, max:100, default:50, answer:50, warpFcn: dummyWarpFcn},
                         {question: "Time of IN-BED & ASLEEP?", focus:"IN-BED & ASLEEP", backImage: "survey-generic.png", min: 0, max:12, default:10, answer:10, warpFcn: dummyWarpFcn},
@@ -107,23 +109,40 @@ function RunSurvey(surveyNum) {
 
 function RunAnalysis() {
     console.log("At Analysis trigger for Survey#", gSurveyNum);
+
+    // First disappear the survey
+    var quizEl = document.getElementById("sleep-survey");
+    quizEl.innerHTML = "";
+
+    // Now draw the Analysis wait cursor....
     var analysisGoEl = document.getElementById("analysis-go");
     analysisGoEl.innerHTML = "";
     var analysisEl = document.getElementById("sleep-analysis");
     var buf = "";
-    
     buf += ' <section class="section">';
     buf += '<div class="question">Here is your SLEEP ANALYSIS...</span></div>';
     buf += '<br><br>';
     buf += '<img src="img/computing-results.gif">'
     buf += '</section> ';
-
     analysisEl.innerHTML = buf;
 
     // Now compute the analysis
     ComputeAnalysis(surveys[gSurveyNum].map(el => (el.value != null) ? el.value : el.default));
 
+    // Wait for 2 secs, then display the results
+    setTimeout(displayAnalysis, 2000);
 }
+
+function displayAnalysis() {
+    var analysisEl = document.getElementById("sleep-analysis");
+    var buf = "";
+    buf += ' <section class="section">';
+    buf += '<div class="question">ANALYSIS GOES HERE...</span></div>';
+    buf += '<br><br>';
+    buf += '</section> ';
+    analysisEl.innerHTML = buf;
+};
+
 
 function ComputeAnalysis(ansList) {
     console.log("Computing Results for Survey#" + gSurveyNum + " from " + JSON.stringify(ansList));
