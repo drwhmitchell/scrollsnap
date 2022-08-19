@@ -77,10 +77,11 @@ function RunSurvey(surveyNum) {
 
     var i = 0;
     const offset = 0;  // Used only for debugging
-    const addedStyling = 'no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;'
+    const addedStyling = ' no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;'
     var completeSection = "";
     var buf = "";
     for (i=0; i<surveys[surveyNum].length; i++) {
+        completeSection = "";
         newQ = InsertFocus(surveys[surveyNum][i].question, surveys[surveyNum][i].focus);
         completeSection = "<section class='section' id='section-" + i + offset + "' style='background: url(\"img/" + surveys[surveyNum][i].backImage + "\")" + addedStyling + "'><div class='question'>";
         completeSection += newQ + "</div>";
@@ -90,27 +91,38 @@ function RunSurvey(surveyNum) {
         buf += completeSection;
     }
     quizEl.innerHTML = buf;
+
+    // Now add the last question to make the analysis "go"
+    var analysisGoEl = document.getElementById("analysis-go");
+    analysisGoEl.innerHTML = "";
+    buf = "";
+    buf += '<section class="section">';
+    buf += '<div class="question"><span id="focus-word">THANK YOU!</span> Are you ready see your <span id="focus-word">Sleep Analysis?</span></div>';
+    buf += '<div class="answer" id="sleep-analysis-go"></div>';
+    buf += '  <button type="button" onclick="RunAnalysis()">Let\'s Go!</button>';
+    buf += '  <br></section>';
+    analysisGoEl.innerHTML = buf;
 }
 
 
 function RunAnalysis() {
     console.log("At Analysis trigger for Survey#", gSurveyNum);
-
-    var buf;
     var analysisGoEl = document.getElementById("analysis-go");
     analysisGoEl.innerHTML = "";
-
     var analysisEl = document.getElementById("sleep-analysis");
+    var buf = "";
+    
     buf += ' <section class="section">';
     buf += '<div class="question">Here is your SLEEP ANALYSIS...</span></div>';
     buf += '<br><br>';
     buf += '<img src="img/computing-results.gif">'
     buf += '</section> ';
 
-    analysisGoEl.innerHTML = buf;
+    analysisEl.innerHTML = buf;
 
     // Now compute the analysis
     ComputeAnalysis(surveys[gSurveyNum].map(el => (el.value != null) ? el.value : el.default));
+
 }
 
 function ComputeAnalysis(ansList) {
