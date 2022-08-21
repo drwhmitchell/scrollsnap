@@ -38,6 +38,14 @@ button {
   text-align: center;
 }
 
+.description {
+  color: #afb3bd;
+  font-family: Nunito, sans-serif;
+  font-size: 1.5em;
+  width: 90%; /* Full-width */
+  text-align: center;
+}
+
 .answer {
   color: #eab16f;
   font-family: Nunito, sans-serif;
@@ -112,4 +120,13 @@ body {
   cursor: pointer; /* Cursor on hover */
 }
 
-
+datalist {
+  margin-top: .5rem; 
+  text-align: center; 
+  color: white;
+  font-family: Nunito, sans-serif;
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
