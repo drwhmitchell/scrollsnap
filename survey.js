@@ -233,10 +233,14 @@ function displayAnalysis() {
     var buf = "";
 
     // Hypnogram
-    buf += ' <section class="section"> \
-             <div class="answer-heading">HYPNOGRAM (Sleep Clock)</div>  \
+    buf += ' <section class="answer-section"> \
+             <div class="answer-heading">HYPNOCHRON</div>  \
+             <hr> \
+             <div class="answer-subheading">A <b>Hypnochron</b> is our own unique way to show you your different estimated sleep states throughout the night </div> \
+             <hr> \
              <img src="img/sample-hypnochron.png" width="320">  \
-             <div class="description"><span style="color:red;">RED</span> = Awake<br> \
+             <hr> \
+             <div class="sleep-key"><span style="color:red;">RED</span> = Awake<br> \
                                      <span style="color:#b5f4fb;">LT BLUE</span> = REM Sleep<br> \
                                      <span style="color:#0087c1;">MED BLUE</span> = LIGHT Sleep<br> \
                                      <span style="color:#062a87;">DARK BLUE</span> = DEEP Sleep \
@@ -244,19 +248,30 @@ function displayAnalysis() {
             </section> ';
 
     // Stats
-    buf += ' <section class="section"> \
+    buf += ' <section class="answer-section"> \
             <div class="answer-heading">SLEEP STATS</div>  \
-            <img src="img/sample-hypnochron.png" width="320">  \
+            <hr> \
+            <div class="answer-subheading">Think of <b>Sleep Stats</b> as the vital statistics of your night sleep.  These measurements break down the components of your sleep so you can compare to population averages and to your own historical measurements. </div> \
+            <hr> \
+            <img src="img/sample-sleepstats.png" width="320">  \
+            <hr> \
             </div>  \
            </section> ';
 
     // Diagnosis
-    buf += ' <section class="section"> \
-    <div class="answer-heading">SLEEP DIAGNOSIS</div><br><br> \
+    buf += ' <section class="answer-section"> \
+    <div class="answer-heading">SLEEP BRIEF</div> \
+    <hr> \
+    <div class="answer-subheading">In this <b>Sleep Brief</b> we explain how your Hypnos and Stats look versus the healthy population your age.  You can learn more about each of these areas by visiting our SLEEP CENTER.</div> \
+    <hr> \
     <div class="diagnosis"> \
-        <li>Your DEEP SLEEP is below average for your age.</li> \
-        <li>Your SLEEP EFFICIENCY could use some improvement.</li> \
-        <li>Your OVERALL SLEEP SATISFACTION is lacking.</li> \
+        <div class="diagnosis-heading"> DEEP SLEEP (-10%) </div> \
+        Your Deep Sleep is below average for your age. Insufficient Deep Sleep has been linked to  \
+        heart disease, type 2 diabetes, immune response problems and neurological diseases.<br><br> \
+        <div class="diagnosis-heading">SLEEP EFFICIENCY (-22%) </div> \
+        Your Sleep Efficiency is way below average for your age. Sleep efficiency is a measure of your overall sleep health, so lower efficiency typically indicates a problem.<br><br> \
+        <div class="diagnosis-heading">SLEEP SCORE (-15%) </div> \
+        Your Sleep Score is slightly below average for your age. <br>\
     </ul></div>  \
    </section> ';
 

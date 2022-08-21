@@ -7,6 +7,15 @@ main {
 
 }
 
+hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 96%;               
+  background-color:#5e5e5e;
+  height: 1px;
+}
+
 button {
   color: #eacba9;
   background-color: #5d87da60;
@@ -31,6 +40,19 @@ button {
   background-color: #000000;
 }
 
+.answer-section {
+  height: 100vh;
+  display: flex; 
+  flex-direction: column;
+/*  justify-content: center; */
+  align-items: center;
+  padding-top: 15%;
+  scroll-snap-align: start;
+  background-color: #000000;
+}
+
+
+
 .question {
   color: #ffffff;
   font-family: Nunito, sans-serif;
@@ -40,14 +62,22 @@ button {
 }
 
 .answer-heading {
-  color: #ffffff;
+  color: #a39cf0;
   font-family: Nunito, sans-serif;
   font-size: 3em;
   width: 90%; /* Full-width */
   text-align: center;
 }
 
-.description {
+.answer-subheading {
+  color: #ffffff;
+  font-family: Nunito, sans-serif;
+  font-size: 1em;
+  width: 80%; /* Full-width */
+ /* text-align: center; */
+}
+
+.sleep-key {
   color: #afb3bd;
   font-family: Nunito, sans-serif;
   font-size: 1.5em;
@@ -56,11 +86,19 @@ button {
 }
 
 .diagnosis {
-  color: #d3dcbe;
+  color: #ffffff;
   font-family: Nunito, sans-serif;
   font-size: 1.0em;
   width: 80%; /* Full-width */
   text-align: left;
+}
+
+.diagnosis-heading {
+  color: #eab16f;
+  font-family: Nunito, sans-serif;
+  font-size: 1.5em;
+  width: 100%; /* Full-width */
+  text-align: center;
 }
 
 .answer {
