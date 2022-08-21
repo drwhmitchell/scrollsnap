@@ -181,7 +181,7 @@ function RunSurvey(surveyNum) {
         completeSection = "<section class='section' id='section-" + i + offset + "' style='" + backgroundStyle + " url(\"img/" + allSurveys[surveyNum].survey[i].backImage + "\")" + addedStyling + "'><div class='question'>";
         completeSection += newQ + "</div>";
         completeSection += '<div class="answer" id="answer-' + i + offset + '">' + TranslateType(allSurveys[surveyNum].survey[i].type, allSurveys[surveyNum].survey[i].default, FALSE) + '</div>';
-        completeSection += '<input class="slider" type="range" name "" list="tickList" value="' + allSurveys[surveyNum].survey[i].default + '" min="' + allSurveys[surveyNum].survey[i].min + '" max="' + allSurveys[surveyNum].survey[i].max + '" onChange="rangeSlide(\'answer-' + i + offset + '\', this.value, ' + i + ')" onMouseMove="rangeSlide(\'answer-' + i + offset + '\', this.value,' +  i + ')"></Input>';
+        completeSection += '<input class="slider" type="range" name "" list="tickList" value="' + allSurveys[surveyNum].survey[i].default + '" min="' + allSurveys[surveyNum].survey[i].min + '" max="' + allSurveys[surveyNum].survey[i].max + '" onChange="rangeSlide(\'answer-' + i + offset + '\', this.value, ' + i + ')" oninput="rangeSlide(\'answer-' + i + offset + '\', this.value,' +  i + ')"></Input>';
         completeSection += GenScale(allSurveys[surveyNum].survey[i].min, allSurveys[surveyNum].survey[i].max, allSurveys[surveyNum].survey[i].step, allSurveys[surveyNum].survey[i].type, allSurveys[surveyNum].survey[i].default);
 
         completeSection += "</section>";  // complete survey question
@@ -234,7 +234,7 @@ function displayAnalysis() {
 
     // Hypnogram
     buf += ' <section class="section"> \
-             <div class="question">HYPNOGRAM (Sleep Clock)</div>  \
+             <div class="answer-heading">HYPNOGRAM (Sleep Clock)</div>  \
              <img src="img/sample-hypnochron.png" width="320">  \
              <div class="description"><span style="color:red;">RED</span> = Awake<br> \
                                      <span style="color:#b5f4fb;">LT BLUE</span> = REM Sleep<br> \
@@ -245,10 +245,21 @@ function displayAnalysis() {
 
     // Stats
     buf += ' <section class="section"> \
-            <div class="question">SLEEP STATS</div>  \
+            <div class="answer-heading">SLEEP STATS</div>  \
             <img src="img/sample-hypnochron.png" width="320">  \
             </div>  \
            </section> ';
+
+    // Diagnosis
+    buf += ' <section class="section"> \
+    <div class="answer-heading">SLEEP DIAGNOSIS</div><br><br> \
+    <div class="diagnosis"> \
+        <li>Your DEEP SLEEP is below average for your age.</li> \
+        <li>Your SLEEP EFFICIENCY could use some improvement.</li> \
+        <li>Your OVERALL SLEEP SATISFACTION is lacking.</li> \
+    </ul></div>  \
+   </section> ';
+
     analysisEl.innerHTML = buf;
 };
 
@@ -272,6 +283,7 @@ function dummyWarpFcn(accum, answer) {
 }
 
 function rangeSlide(section, value, i) {
+
     document.getElementById(section).innerHTML = TranslateType(allSurveys[gSurveyNum].survey[i].type, value, FALSE);
     allSurveys[gSurveyNum].survey[i].value = value;
 

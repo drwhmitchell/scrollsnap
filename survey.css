@@ -24,13 +24,22 @@ button {
   height: 100vh;
   display: flex; 
   flex-direction: column;
-  justify-content: center;
+/*  justify-content: center; */
   align-items: center;
+  padding-top: 25%;
   scroll-snap-align: start;
   background-color: #000000;
 }
 
 .question {
+  color: #ffffff;
+  font-family: Nunito, sans-serif;
+  font-size: 3em;
+  width: 90%; /* Full-width */
+  text-align: center;
+}
+
+.answer-heading {
   color: #ffffff;
   font-family: Nunito, sans-serif;
   font-size: 3em;
@@ -44,6 +53,14 @@ button {
   font-size: 1.5em;
   width: 90%; /* Full-width */
   text-align: center;
+}
+
+.diagnosis {
+  color: #d3dcbe;
+  font-family: Nunito, sans-serif;
+  font-size: 1.0em;
+  width: 80%; /* Full-width */
+  text-align: left;
 }
 
 .answer {
@@ -121,12 +138,13 @@ body {
 }
 
 datalist {
+  display: inline-block;
   margin-top: .5rem; 
   text-align: center; 
   color: white;
   font-family: Nunito, sans-serif;
   font-size: 1.5em;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   width: 80%;
 }
