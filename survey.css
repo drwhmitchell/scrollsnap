@@ -16,17 +16,23 @@ hr {
   height: 1px;
 }
 
+a:link {
+  color: #a4e5ee;
+  text-decoration: underline;
+}
+
 button {
-  color: #eacba9;
-  background-color: #5d87da60;
+  color: #ffffffd4;
+  background-color: #3656889b;
   font-family: Nunito, sans-serif;
-  font-size: 2em;
+  font-size: 3em;
   text-align: center;
-  font-weight: bold;
+/*  font-weight: bold; */
   padding-left: 2em;
   padding-right: 2em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+  width: 50%;               
 }
 
 .section {
@@ -94,9 +100,43 @@ button {
 }
 
 .diagnosis-heading {
+  color: #6fdcea;
+  font-family: Nunito, sans-serif;
+  font-size: 1.5em;
+  width: 100%; /* Full-width */
+  text-align: center;
+}
+
+.diagnosis-emphasis {
+  color: #fa4626db;
+}
+
+.solutions-body {
+  color: #ffffff;
+  font-family: Nunito, sans-serif;
+  font-size: 1.0em;
+  width: 80%; /* Full-width */
+  text-align: left;
+  align-items: center;
+}
+
+.solutions-image {
+  width: 100%; /* Full-width */
+  text-align: center;
+}
+
+.solutions-heading {
   color: #eab16f;
   font-family: Nunito, sans-serif;
   font-size: 1.5em;
+  width: 100%; /* Full-width */
+  text-align: center;
+} 
+
+.solutions-rationale {
+  color: #6fdcea;
+  font-family: Nunito, sans-serif;
+  font-size: 1em;
   width: 100%; /* Full-width */
   text-align: center;
 }

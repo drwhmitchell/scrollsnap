@@ -214,26 +214,87 @@ function RunAnalysis() {
     analysisGoEl.innerHTML = "";
     var analysisEl = document.getElementById("sleep-analysis");
     var buf = "";
-    buf += ' <section class="section">';
-    buf += '<div class="question">Analyzing your sleep...</span></div>';
-    buf += '<br><br>';
-    buf += '<img src="img/brainwaves.gif">'
-    buf += '</section> ';
+    buf += ' <section class="section"> \
+             <div class="question">Analyzing your sleep...</span></div>  \
+             <br><br></br> \
+             <img src="img/brainwaves.gif"> \
+             </section>';
     analysisEl.innerHTML = buf;
 
     // Now compute the analysis
     ComputeAnalysis(allSurveys[gSurveyNum].survey.map(el => (el.value != null) ? el.value : el.default));
 
     // Wait for 2 secs, then display the results
-    setTimeout(displayAnalysis, 4000);
+    setTimeout(DisplayAnalysis, 4000);
 }
 
-function displayAnalysis() {
-    var analysisEl = document.getElementById("sleep-analysis");
+// Page that displays the "anticipation question" for the solutions and then displays the recommended solutions
+function RunSolutions() {
+    console.log("At Solutions trigger for Survey#", gSurveyNum);
+
+    // Now draw the Analysis wait cursor....
+    var recoGoEl = document.getElementById("recommendations-go");
+    recoGoEl.innerHTML = "";
+    var solutionsEl = document.getElementById("sleep-solutions");
+    var buf = "";
+    buf += ' <section class="section"> \
+             <div class="question">Calculating Sleep Solutions for you...</span></div>  \
+             <br><br></br> \
+             <img src="img/brainwaves.gif"> \
+             </section>';
+    solutionsEl.innerHTML = buf;
+
+    // Now compute the analysis
+    ComputeSolutions();
+
+    // Wait for 4 secs, then display the results
+    setTimeout(DisplaySolutions, 4000);
+}
+
+
+// Use the reco engine to calc solutions given the sleep architecture
+function ComputeSolutions() {
+    // 
+    console.log("Computing Sleep Solutions");
+}
+
+// Display the solutions based on the recommendations
+function DisplaySolutions() {
+    var solutionsEl = document.getElementById("sleep-solutions");
     var buf = "";
 
     // Hypnogram
     buf += ' <section class="answer-section"> \
+             <div class="answer-heading">SLEEP SOLUTIONS</div>  \
+             <hr> \
+             <div class="answer-subheading">These <b>Sleep Solution Recommendations</b> are customized for you based on the answers you posed to the survey questions.\
+               For best accuracy and automatic sleep monitoring, try out our free \
+               <b>Deep Sleep</b> mobile app </div> \
+             <hr> \
+             <div class="solutions-heading"><a href="https://deepsleep.buzz/2022/07/why-tech-accelerators-may-soon-be-irrelevant-as-an-mba/"> Oura Ring </a></div> \
+             <div class="solutions-rationale"> (for Sleep Monitoring Accuracy) </div> \
+             <div class="solutions-body">The Oura Ring second generation is one of the most accurate sleep solutions on the market. </div> \
+             <br><div class="solutions-image"><a href="https://deepsleep.buzz/2022/07/why-tech-accelerators-may-soon-be-irrelevant-as-an-mba/"><img src="img/oura-ring.png" width="320"></a></div>\
+             </section> \
+             <section class="answer-section"> \
+             <div class="answer-heading">SLEEP SOLUTIONS</div>  \
+             <hr> \
+             <div class="solutions-heading"><a href="https://deepsleep.buzz/2016/11/chilisleep-ooler/"> Ooler Bed Cooler </a></div> \
+             <div class="solutions-rationale"> (for improving Deep Sleep ) </div> \
+             <div class="solutions-body">The Ooler Bed Cooler is the great grand-daddy of bed thermal management.  </div>\
+             <br><div class="solutions-image"><a href="https://deepsleep.buzz/2016/11/chilisleep-ooler/"><img src="img/ooler-cooler.png" width="320"></a></div> \
+             </div> \
+             <hr> \
+            </section> ';
+    solutionsEl.innerHTML = buf;
+}
+
+function DisplayAnalysis() {
+    var analysisEl = document.getElementById("sleep-analysis");
+    var analysisBuf = "";
+
+    // Hypnogram
+    analysisBuf += ' <section class="answer-section"> \
              <div class="answer-heading">HYPNOCHRON</div>  \
              <hr> \
              <div class="answer-subheading">A <b>Hypnochron</b> is our own unique way to show you your different estimated sleep states throughout the night </div> \
@@ -248,7 +309,7 @@ function displayAnalysis() {
             </section> ';
 
     // Stats
-    buf += ' <section class="answer-section"> \
+    analysisBuf += ' <section class="answer-section"> \
             <div class="answer-heading">SLEEP STATS</div>  \
             <hr> \
             <div class="answer-subheading">Think of <b>Sleep Stats</b> as the vital statistics of your night sleep.  These measurements break down the components of your sleep so you can compare to population averages and to your own historical measurements. </div> \
@@ -259,25 +320,35 @@ function displayAnalysis() {
            </section> ';
 
     // Diagnosis
-    buf += ' <section class="answer-section"> \
+    analysisBuf += ' <section class="answer-section"> \
     <div class="answer-heading">SLEEP BRIEF</div> \
     <hr> \
     <div class="answer-subheading">In this <b>Sleep Brief</b> we explain how your Hypnos and Stats look versus the healthy population your age.  You can learn more about each of these areas by visiting our SLEEP CENTER.</div> \
     <hr> \
     <div class="diagnosis"> \
-        <div class="diagnosis-heading"> DEEP SLEEP (-10%) </div> \
+        <div class="diagnosis-heading"> DEEP SLEEP <span class="diagnosis-emphasis">(-10%)</span> </div> \
         Your Deep Sleep is below average for your age. Insufficient Deep Sleep has been linked to  \
-        heart disease, type 2 diabetes, immune response problems and neurological diseases.<br><br> \
-        <div class="diagnosis-heading">SLEEP EFFICIENCY (-22%) </div> \
-        Your Sleep Efficiency is way below average for your age. Sleep efficiency is a measure of your overall sleep health, so lower efficiency typically indicates a problem.<br><br> \
-        <div class="diagnosis-heading">SLEEP SCORE (-15%) </div> \
-        Your Sleep Score is slightly below average for your age. <br>\
-    </ul></div>  \
+        heart disease, type 2 diabetes, immune response problems and neurological diseases.<img src="img/learn-more.png" width="90"><br><br> \
+        <div class="diagnosis-heading">SLEEP EFFICIENCY <span class="diagnosis-emphasis">(-22%)</span> </div> \
+        Your Sleep Efficiency is way below average for your age. Sleep efficiency is a measure of your sleep health, so lower efficiency is bad.<img src="img/learn-more.png" width="80"><br><br> \
+        <div class="diagnosis-heading">SLEEP SCORE <span class="diagnosis-emphasis">(-15%)</span> </div> \
+        Your Sleep Score is slightly below average for your age.<img src="img/learn-more.png" width="90"> \
+    </div>  \
    </section> ';
+   analysisEl.innerHTML = analysisBuf;
 
-    analysisEl.innerHTML = buf;
+    // Now add the last question to make the Recommendations "go"
+    var recoGoEl = document.getElementById("recommendations-go");
+    var solutionGoBuf;
+    recoGoEl.innerHTML = "";
+    solutionGoBuf += '<section class="section"> \
+               <div class="question">Ready to view <span id="focus-word">Sleep Solutions?</span></div>  \
+               <div class="answer" id="sleep-solutions-go"></div> \
+               <button type="button" onclick="RunSolutions()">Let&#39;s Go!</button> \
+               <br></section>';
+    recoGoEl.innerHTML = solutionGoBuf;
+
 };
-
 
 function ComputeAnalysis(ansList) {
     console.log("Computing Results for Survey#" + gSurveyNum + " from " + JSON.stringify(ansList));
