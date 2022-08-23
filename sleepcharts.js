@@ -32,13 +32,11 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
   if (titleText === 'SleepSignal_Hypno') titleText = 'DeepSleep AppleWatch';
   // Dynamically append HTML to the 'chartContainerID' DOM element that 
   // creates a div wrapper around a chart element with ID 'newchartElID'
-  newHTMLbuf += "<div class='sleep_record_container'";
-  newHTMLbuf += " style='height: 300px'>";
-  newHTMLbuf +=   "<canvas id='" + newChartElID + "'></canvas>"; 
-  newHTMLbuf += "</div>";
+  newHTMLbuf += "<div class='sleep-record-container'> \
+                <canvas id='" + newChartElID + "' style='width:400px'></canvas></div>";
 
 
-
+/*
   // Tack on a line of stats
   newHTMLbuf += "<div class='text-center' style='background-color: #F5F4F8'>";
   newHTMLbuf += "<small>SCORE " + Math.round(sleepArch.score);
@@ -47,6 +45,9 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
   newHTMLbuf += "&nbsp &nbsp &nbsp &nbsp &nbsp REM " + epochTimeToHours(sleepArch.timerem) + " hours";
   newHTMLbuf += "&nbsp &nbsp &nbsp &nbsp &nbsp AWAKE " + epochTimeToHours(sleepArch.timeawake) + " hours";
   newHTMLbuf += "</small></div><br>";
+*/
+
+console.log("Chart container='" + chartContainerID + "'");
 
   chartsHTML.innerHTML += newHTMLbuf;   // Append the new HTML
   console.log("Creating new Chart='" + newChartElID + "'");
@@ -444,4 +445,12 @@ console.log("CreateSleepRecordChart with AsleepData=" + JSON.stringify(asleepDat
       }
   })
   return sleepRecordsChart;
+}
+
+// Helper Functions
+
+function epochTimeToHours(epochTime) {
+  var elapsedHrs = Math.floor(epochTime/3600000);
+  var elapsedMin = Math.floor(((epochTime/3600000) - elapsedHrs) * 60);
+  return(elapsedHrs.toString() + ":" + elapsedMin.toString().padStart(2, '0'));
 }

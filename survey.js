@@ -221,8 +221,7 @@ function RunAnalysis() {
              </section>';
     analysisEl.innerHTML = buf;
 
-    // Now compute the analysis
-    ComputeAnalysis(allSurveys[gSurveyNum].survey.map(el => (el.value != null) ? el.value : el.default));
+
 
     // Wait for 2 secs, then display the results
     setTimeout(DisplayAnalysis, 4000);
@@ -293,7 +292,8 @@ function DisplayAnalysis() {
     var analysisEl = document.getElementById("sleep-analysis");
     var analysisBuf = "";
 
-    // Hypnogram
+
+    // Hypnochron
     analysisBuf += ' <section class="answer-section"> \
              <div class="answer-heading">HYPNOCHRON</div>  \
              <hr> \
@@ -307,6 +307,17 @@ function DisplayAnalysis() {
                                      <span style="color:#062a87;">DARK BLUE</span> = DEEP Sleep \
              </div>  \
             </section> ';
+
+    // Hypnogram
+    analysisBuf += ' <section class="answer-section"> \
+    <div class="answer-heading">HYPNOGRAM</div>  \
+    <hr> \
+    <div class="answer-subheading">A <b>Hypnogram</b> is the graph of time and sleep states most used by sleep researchers. </div> \
+    <hr> \
+    <div id="hypno-container"> \
+    </div> \
+    <hr> \
+   </section> ';
 
     // Stats
     analysisBuf += ' <section class="answer-section"> \
@@ -348,15 +359,23 @@ function DisplayAnalysis() {
                <br></section>';
     recoGoEl.innerHTML = solutionGoBuf;
 
+        // Now compute the analysis
+ //   ComputeAnalysis(allSurveys[gSurveyNum].survey.map(el => (el.value != null) ? el.value : el.default));
+ ComputeAnalysis(allSurveys[gSurveyNum]);
+
 };
 
-function ComputeAnalysis(ansList) {
-    console.log("Computing Results for Survey#" + gSurveyNum + " from " + JSON.stringify(ansList));
+function ComputeAnalysis(surveyObject) {
+    console.log("Computing Results for Survey#" + surveyObject.name);
+
+    
+    // Compute the Sleep Object (Hypno and Stats) for the Survey Object
+    var sleepObject = ClassicSurveySynth(surveyObject.survey); 
 
     //  This is where the magic happens!   We successively apply all of the Warp functions associated
     //  with each question in the survey and get a net result which is the final sleep arch!
-    netResult = allSurveys[gSurveyNum].survey.reduce((accum, currentQ) => currentQ.warpFcn(accum, currentQ.answer), 0);
-    console.log("Net Result = " + netResult);
+//    netResult = allSurveys[gSurveyNum].survey.reduce((accum, currentQ) => currentQ.warpFcn(accum, currentQ.answer), 0);
+//    console.log("Net Result = " + netResult);
 }
 
 function defaultComputeFcn () {
@@ -367,6 +386,32 @@ function dummyWarpFcn(accum, answer) {
     console.log("Dummy warp function called with: " + answer);
     return (accum + answer);
 }
+
+// New Sleep Synth routine ....takes as input a Survey object and returns a Hypno object
+function ClassicSurveySynth(surveyObject) {
+    // Survey objects look like this:
+    //  [{question: "What AGE?", focus:"AGE", imageMode: STATIC, backImage: "survey1.png", type: YEARS, typeLabel: 'years', min: 10, max:90, step:10, default:50, answer:50, validator: dummyValidator, warpFcn: dummyWarpFcn},
+    const AGEQ = 0;
+    const ONSETQ = 1;
+    const ARISEQ = 2;
+  
+    const onsetTimeStr = MilitaryTimeTranslate( surveyObject[ONSETQ].answer, FALSE);
+    const wakeTimeStr = MilitaryTimeTranslate( surveyObject[ARISEQ].answer, FALSE);
+
+    console.log("Synthesizing Hypno from Survey (AGE, START, END)=(" + surveyObject[AGEQ].answer + "," + onsetTimeStr + "," + wakeTimeStr);
+    var startStrs = onsetTimeStr.split(":");
+    const startTime = LastNight(parseInt(startStrs[0]), parseInt(startStrs[1]));
+    var endStrs = wakeTimeStr.split(":");
+    const endTime = ThisMorning(parseInt(endStrs[0]), parseInt(endStrs[1]));
+    const age = surveyObject[AGEQ].answer;
+  
+    sleepArch = SynthHypno(startTime, endTime, age);
+    console.log("Synthesized Hypno = " + sleepArch.hypno);
+
+    CreateHypnoChart('hypno-container', "Age " + age + "-Based Sleep Architecture Estimate", startTime, endTime, sleepArch);
+}
+
+
 
 function rangeSlide(section, value, i) {
 

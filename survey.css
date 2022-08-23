@@ -111,6 +111,19 @@ button {
   color: #fa4626db;
 }
 
+
+.hypno-container {
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  background-color: #000000;
+}
+
+.sleep-record-container {
+  width: 100%;
+  background-color: #000000;
+}
+
 .solutions-body {
   color: #ffffff;
   font-family: Nunito, sans-serif;

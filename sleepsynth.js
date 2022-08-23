@@ -128,6 +128,116 @@ function mapSleepPhases(age) {
 
 }
 
+// Synthesizes a SleepArchitecture object based on population data averages and demographic information, and then 'warps'
+// this sleep architecture based on the customer-subjective "feel" information
+// startTime/endTime :  epoch millisecond start/end times
+// age : years
+function SynthHypno(startTime, endTime, age) {
+  const sleepArch = {hypno: []};
+  const cycleStates = ["Wake", "Light", "Deep", "REM"];
+  var h;
+  var sleepState;
+
+  // Cycle through as many 'P90' cycles as we need to to fill in between 'startTime' and 'endTime' with sleep states
+  h = [];
+  cycleNo = 0;
+  var now = startTime;
+  while (now < endTime) {
+
+    for (phase=0; phase < cycleStates.length; phase++) {
+      sleepState = createSleepState(cycleStates[phase], cycleNo, now, age); 
+      now = sleepState.y[1];
+      if (now >= endTime) {
+        console.log("----------------------Breaking cycle to WAKE!!!")
+        sleepState.y[1] = endTime; 
+        h.push(sleepState);
+        h.push({x: "Wake", y: [endTime-1, endTime]});
+        break;
+      }
+      h.push(sleepState);
+    }
+    cycleNo++
+    console.log("SynthHypno Cycle #" + cycleNo);
+  }
+  // To make the format match what Jack's APIs return
+  sleepArch.hypno = JSON.stringify(h);
+
+  // Stuff some values into the rest of the Sleep Arch object
+  sleepArch.score = 90;
+  //   sleepArch.tst = 7 * (60 * 60 * 1000);
+  sleepArch.tst = h[h.length-1].y[1] - h[0].y[0];
+  sleepArch.timedeep = CountStateTime("Deep", h);
+  //   sleepArch.timedeep =1.2 * (60 * 60 * 1000);
+  sleepArch.timerem = CountStateTime("REM", h);
+  sleepArch.timeawake = CountStateTime("Wake", h);
+
+  return(sleepArch)
+}
+
+function createSleepState(state, cycleNo, t, age) {
+  const millisecToMin = 60000;
+  var start, end;
+
+  switch (state) {
+    case "Wake"  : 
+        start = t;    // wake goes up with age
+        ageCycleMins = (9 * age/10)/(8);
+        end = t + (millisecToMin * (ageCycleMins + getRandomInt(5)));
+        break;
+    case "Light" :
+        start =
+        end = t + (millisecToMin * (40 + getRandomInt(5)));
+        break;
+    case "Deep" :
+        start = t;
+        deepCycleMins = (160 - age/10)/(4*3*2);   // deep goes down with age
+        end = t + (millisecToMin * (Math.floor(6 - cycleNo) * deepCycleMins)); 
+        break;
+    case "REM" :
+        start = t;
+        end = t + (millisecToMin * ((cycleNo*10) + getRandomInt(5)));
+        break;
+  }
+  return({x: state, y: [start, end]});
+}
+
+function CountStateTime(state, h) {
+  var total = 0;
+  h.forEach(element => {
+    if (element.x == state) 
+      total += (element.y[1] - element.y[0]);
+  });
+  return(total);
+}
+
+
+// ==========================================================================================
+//  UTILITY FUNCTIONS 
+// ==========================================================================================
+
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+//Helper functino that returns utc epoch time corresponding to Last Night at Hour 
+function LastNight(hour, min) {
+  const startDate = new Date();
+  startDate.setHours(startDate.getHours() -24);  // go back a day
+  startDate.setHours(hour, min, 0);
+  console.log("Last Night =" + startDate.toLocaleString());
+  return startDate.getTime();
+}
+
+//Helper functino that returns utc epoch time corresponding to Last Night at Hour 
+function ThisMorning(hour, min) {
+  const startDate = new Date();
+  startDate.setHours(hour, min, 0);
+  console.log("This Morning =" + startDate.toLocaleString());
+  return startDate.getTime();
+}
+
+
 // Helper function to sum an array
 function arraySum(arr) {
   return(arr.reduce((a, i)=>a+i,0));
