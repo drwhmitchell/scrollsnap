@@ -113,6 +113,10 @@ button {
 
 
 .hypno-container {
+  color: #ffffff;
+  font-family: Nunito, sans-serif;
+  font-size: 1.0em;
+
   display: flex; 
   justify-content: center; 
   align-items: center;

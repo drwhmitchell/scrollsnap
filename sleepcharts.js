@@ -32,9 +32,10 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
   if (titleText === 'SleepSignal_Hypno') titleText = 'DeepSleep AppleWatch';
   // Dynamically append HTML to the 'chartContainerID' DOM element that 
   // creates a div wrapper around a chart element with ID 'newchartElID'
-  newHTMLbuf += "<div class='sleep-record-container'> \
-                <canvas id='" + newChartElID + "' style='width:400px'></canvas></div>";
-
+ // newHTMLbuf += "<div class='sleep-record-container'> \
+ //               <canvas id='" + newChartElID + "' style='width:100%'></canvas></div>";
+  
+  newHTMLbuf += "<canvas id='" + newChartElID + "' style='width:400px'></canvas>";
 
 /*
   // Tack on a line of stats
@@ -59,7 +60,9 @@ console.log("Chart container='" + chartContainerID + "'");
             label: 'Sleep State',
             yAxisID: 'SleepState',
             stepped: true,
-            borderColor: "#B6BABB",
+//            borderColor: "#B6BABB",
+            borderColor: "#FFFFFF",
+
             borderWidth : 3,
             fill: false,
             radius: 0,
@@ -78,25 +81,29 @@ console.log("Chart container='" + chartContainerID + "'");
       options: {
         layout: {
           padding: {
-              right: 86,
-              left: 0,
+//              right: 86,
+right: 25,
+              left: 20,
           }
       },
 
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         plugins: {
           legend : {
             display: false,
           },
           title: {
             display: true,
-            text: titleText,
+//            text: titleText,
             font : { size: 18},
           }
         },
         scales: {
           x: {
+            grid : {
+              borderColor: '#a39cf0',
+            },
             min: startTime,
             max: endTime,
             display: true,
@@ -107,19 +114,23 @@ console.log("Chart container='" + chartContainerID + "'");
                 hour: 'h a'
               }
             },
+            ticks: {
+              color : '#a39cf0',
+            }
           },
           SleepState: {
             type: 'linear',
             display: true,
             title: {
-              display : true,
+ //             display : true,
               text : 'Sleep State',
-              font : { size: 18},
+              font : { size: 18 },
             },
             position: 'left',
             min: 0,
             max: 5,
             ticks: {
+              color : '#a39cf0',
               beginAtZero: true,
               min: 0,
               max: 5,
@@ -129,6 +140,7 @@ console.log("Chart container='" + chartContainerID + "'");
                   case 0:
                     return '';
                   case 1:
+                    label.color = '#ffffff';
                     return 'DEEP';
                   case 2:
                     return 'LIGHT';
