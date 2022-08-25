@@ -385,6 +385,12 @@ function dummyWarpFcn(accum, answer) {
     return (accum + answer);
 }
 
+// pulls off the AM/PM suffix
+function suffix(timeStr) {
+    const suff = timeStr[timeStr.length-2] + timeStr[timeStr.length-1];
+    return(suff);
+}
+
 // New Sleep Synth routine ....takes as input a Survey object and returns a Hypno object
 function ClassicSurveySynth(surveyObject) {
     // Survey objects look like this:
@@ -392,13 +398,38 @@ function ClassicSurveySynth(surveyObject) {
     const AGEQ = 0;
     const ONSETQ = 1;
     const ARISEQ = 2;
-  
-    const onsetTimeStr = MilitaryTimeTranslate( surveyObject[ONSETQ].answer, FALSE);
-    const wakeTimeStr = MilitaryTimeTranslate( surveyObject[ARISEQ].answer, FALSE);
+ 
+    // Get regular time strings from military time for the 
+ //   const onsetTimeStr = MilitaryTimeTranslate( surveyObject[ONSETQ].answer, FALSE);
+ //   const wakeTimeStr = MilitaryTimeTranslate( surveyObject[ARISEQ].answer, FALSE);
 
-    console.log("Synthesizing Hypno from Survey (AGE, START, END)=(" + surveyObject[AGEQ].answer + "," + onsetTimeStr + "," + wakeTimeStr);
+    const onsetTime = MilitaryToDate(surveyObject[ONSETQ].answer, -1);
+    const wakeTime = MilitaryToDate(surveyObject[ARISEQ].answer, 0);
+    const age = surveyObject[AGEQ].answer;
+console.log("Synthesizing Hypno from Survey (AGE, START, END)=(" + age + "," + onsetTime.toLocaleTimeString() + "," + wakeTime.toLocaleTimeString());
+    const sleepArch = SynthHypno(onsetTime.getTime(), wakeTime.getTime(), age);
+console.log("Synthesized " + sleepArch.hypno.length + " new Hypno States");
+    CreateHypnoChart('hypno-container', "Age " + age + "-Based Sleep Architecture Estimate", onsetTime, wakeTime, sleepArch);
+
+
+    /*
+var startDateObj = new Date();
+ // subtract one day from current time                          
+startDateObj.setDate(startDateObj.getDate() - 1); 
+console.log("YESTERDAY DATE = " + startDateObj);
+
+var h = Math.floor(surveyObject[ONSETQ].answer/100);
+var m = surveyObject[ONSETQ].answer - (h * 100);
+
+ startDateObj.setHours(h, m);
+console.log("BETTER StartDate = " + startDateObj);
+
     var startStrs = onsetTimeStr.split(":");
-    const startTime = LastNight(parseInt(startStrs[0]), parseInt(startStrs[1]));
+    
+var onsetSuffix = suffix(surveyObject[ONSETQ].answer);
+console.log("Suffix is: '" + onsetSuffix + "'");
+    const startTime = LastNight(parseInt(startStrs[0]), onsetSuffix, parseInt(startStrs[1]));
+
     var endStrs = wakeTimeStr.split(":");
     const endTime = ThisMorning(parseInt(endStrs[0]), parseInt(endStrs[1]));
     const age = surveyObject[AGEQ].answer;
@@ -407,8 +438,18 @@ function ClassicSurveySynth(surveyObject) {
     console.log("Synthesized Hypno = " + sleepArch.hypno);
 
     CreateHypnoChart('hypno-container', "Age " + age + "-Based Sleep Architecture Estimate", startTime, endTime, sleepArch);
+*/
 }
 
+// Takes a military time and a dayOffset (0==today) and returns a Date Object 
+function MilitaryToDate(mt, dayOffset) {
+    var targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + dayOffset);
+    var h = Math.floor(mt/100);
+    var m = mt - (h * 100);
+    targetDate.setHours(h, m);
+    return(targetDate);
+}
 
 
 function rangeSlide(section, value, i) {

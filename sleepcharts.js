@@ -18,6 +18,21 @@ function marshallSleepNetHypno(hypno) {
   return(newHypno);
 }
 
+function getLineColor(ctx) {
+  const index = ctx.dataIndex;
+const lineColor = index %2 ? "#6fdcea" : "#FFFFFF";
+console.log("GetLineColor [" + index + "] == " + lineColor);
+
+  return (lineColor);
+}
+
+function getLineWidth(ctx) {
+  const index = ctx.dataIndex;
+const lineWidth = index %2 ? 1 : 4;
+
+  return (lineWidth);
+}
+
 // Dynamically creates a chart sleep data (Hypno, Asleep) added on the to the DOM element passed in
 // Returns a ref to the chart object so that it can be cleaned up
 function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleepArch) {
@@ -52,6 +67,7 @@ console.log("Chart container='" + chartContainerID + "'");
 
   chartsHTML.innerHTML += newHTMLbuf;   // Append the new HTML
   console.log("Creating new Chart='" + newChartElID + "'");
+console.log("Hypno Data = " + JSON.stringify(hypnoData));
   var ctx = document.getElementById(newChartElID).getContext('2d');
   const hypnoChart = new Chart(ctx, {
     data: {
@@ -61,24 +77,37 @@ console.log("Chart container='" + chartContainerID + "'");
             yAxisID: 'SleepState',
             stepped: true,
 //            borderColor: "#B6BABB",
-            borderColor: "#FFFFFF",
+            borderColor: getLineColor,
+            backgroundColor: getLineColor,
 
-            borderWidth : 3,
+            borderWidth : getLineWidth,
+
             fill: false,
             radius: 0,
             data : hypnoData,
-            animations: {
-              tension: {
-                duration: 1000,
-                easing: 'linear',
-                from: 1,
-                to: -0.25,
-                loop: true,
-              }
-            }
+//            animations: {
+//              tension: {
+//                duration: 1000,
+//                easing: 'linear',
+//                from: 1,
+//                to: -0.25,
+//                loop: true,
+//              }
+//            }
           }],
       },
       options: {
+//        elements: {
+//          line: {
+//            fill: true,
+//            backgroundColor: "#B6BABB", //getLineColor,
+//            borderColor: "#fa4626db", //getLineColor,
+//          },
+//          point: {
+//            backgroundColor: "#B6BABB", //getLineColor,
+//
+//          },
+//        },
         layout: {
           padding: {
 //              right: 86,
@@ -140,7 +169,6 @@ right: 25,
                   case 0:
                     return '';
                   case 1:
-                    label.color = '#ffffff';
                     return 'DEEP';
                   case 2:
                     return 'LIGHT';

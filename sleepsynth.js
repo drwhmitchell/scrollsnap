@@ -221,12 +221,24 @@ function getRandomInt(max) {
 }
 
 //Helper functino that returns utc epoch time corresponding to Last Night at Hour 
-function LastNight(hour, min) {
+function OldLastNight(hour, min) {
   const startDate = new Date();
   startDate.setHours(startDate.getHours() -24);  // go back a day
   startDate.setHours(hour, min, 0);
   console.log("Last Night =" + startDate.toLocaleString());
   return startDate.getTime();
+}
+
+//Helper functino that returns utc epoch time corresponding to Last Night at Hour 
+function LastNight(hour, ampm, min) {
+  const startDate = new Date();
+  var offset;
+  if (ampm == "am") offset = 12;
+  else offset = 24; 
+  startDate.setHours(startDate.getHours() -offset);  // go back a day
+  startDate.setHours(hour, min, 0);
+  console.log("Last Night =" + startDate.toLocaleString());
+return startDate.getTime();
 }
 
 //Helper functino that returns utc epoch time corresponding to Last Night at Hour 
