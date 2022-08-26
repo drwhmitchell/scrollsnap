@@ -77,8 +77,8 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
   const down = (ctx, value) => {ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined};
 
   const skipped = (ctx, value) => {
-    console.log("Segment (" + ctx.p0.parsed.x + "," + ctx.p0.parsed.y + ")"); 
-    console.log("TO (" + ctx.p1.parsed.x + "," + ctx.p1.parsed.y + ") "); 
+//    console.log("Segment (" + ctx.p0.parsed.x + "," + ctx.p0.parsed.y + ")"); 
+//    console.log("TO (" + ctx.p1.parsed.x + "," + ctx.p1.parsed.y + ") "); 
 
     if (ctx.p0.parsed.x == ctx.p1.parsed.x) 
       return('#458EC3'); // gray for the vertical segments
@@ -259,306 +259,125 @@ right: 25,
   return hypnoChart;
 }
 
-// Dynamically creates a chart of biometric information (HR, Motion) added on the to the DOM element passed in
-// Returns a ref to the chart object so that it can be cleaned up
-function CreateBioChart(chartContainerID, titleText, startTime, endTime, hrData, aeData) {
-console.log("CreateBioChart with Start/End=" + new Date(startTime).toLocaleTimeString() + "-" + new Date(endTime).toLocaleTimeString());
-//console.log("HR Data =" + JSON.stringify(hrData));
-//console.log("AE Data =" + JSON.stringify(aeData));
 
-var newChartElID = "sleepBioChart" + Math.random()*10;
-  const aeMax = 3.0;     // scales the ActiveEnergy
- // const aeMax = 10;     // scales the ActiveEnergy
-  const hrMin = 50;     // scales the ActiveEnergy
-  const hrMax = 90;     // scales the ActiveEnergy
+function CalcStatsData(hypno) {
+  console.log("Calcing Stats Data....")
+  return([{x: 10, y:1}, {x: 9, y:2},{x: 8, y:3},])
+}
+
+function CreateStatsChart(chartContainerID, titleText, startTime, endTime, sleepArch) {
+  console.log("Creating STATS CHART with Start/End=" + new Date(startTime).toLocaleTimeString() + "-" + new Date(endTime).toLocaleTimeString());
+  
+  var statsData = CalcStatsData(sleepArch.hypno);
   var chartsHTML = document.getElementById(chartContainerID);
   var newHTMLbuf = [];
-
-  // Dynamically append HTML to the 'chartContainerID' DOM element that 
-  // creates a div wrapper around a chart element with ID 'newchartElID'
-  newHTMLbuf += "<div class='sleep_record_container'";
-  newHTMLbuf += " style='height: 300px'>";
-  newHTMLbuf +=   "<canvas id='" + newChartElID + "'></canvas>"; 
-  newHTMLbuf += "</div>";
-
+  var newChartElID = chartContainerID + "-canvas";
+  newHTMLbuf += "<canvas id='" + newChartElID + "' style='width:400px'></canvas>";
+  console.log("STATS Chart container='" + chartContainerID + "'");
+  newHTMLbuf += "<hr>Stats Chart";
   chartsHTML.innerHTML += newHTMLbuf;   // Append the new HTML
-  console.log("Creating new Chart='" + newChartElID + "'");
-  var ctx = document.getElementById(newChartElID).getContext('2d');
-  const bioChart = new Chart(ctx, {
-    data: {
-        datasets: [{
-            type: 'line',
-            label: 'Heartrate',
-            yAxisID: 'HR',
-            borderColor: '#C70039',	
-            backgroundColor: '#C70039',	
-            data : hrData,
-            animations: {
-              tension: {
-                duration: 1000,
-                easing: 'linear',
-                from: 1,
-                to: -0.25,
-                loop: true,
-              }
-            }
-          },{ 
-            type: 'line',
-            label: 'Motion',
-            yAxisID: 'AE',
-            borderColor: '#000080',
-            backgroundColor: '#000080',	
-            pointStyle: 'circle',
-            radius: 0,
-            stepped: true,
-            data : aeData,
-          }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend : {
-            display: false,
-          },
-          title: {
-            display: false,
-            text: titleText,
-            font : { size: 18},
-          }
-        },
-        scales: {
-          x: {
-            display: true,
-            type: 'time',
-            bounds: 'data',
-            min: startTime,
-            max: endTime,
-            time: {
-              unit: 'hour',  
-              displayFormats: {
-                hour: 'h a'
-              },
-            },
-          },
-          HR: {
-            type: 'linear',
-            display: true,
-            title: {
-              display : true,
-              text : 'Heartrate',
-              padding: 15,
-              font : { size: 18},
-            },
-            position: 'left',
-          },
-          AE: {
-            type: 'linear',
-            display: true,
-            title: {
-              display : true,
-              text : 'Motion',
-              padding: 15,
-              font : { size: 18},
-            },
-            position: 'right',
-            min: 0,
-            max: aeMax,
-            grid: {
-              drawOnChartArea: false, // only want the grid lines for one axis to show up
-            },
-          }
+  console.log("Creating new Stats Chart");
+
+  const data = {
+    labels: ["WAKE", "REM", "LIGHT", "DEEP"],
+    datasets: [
+      {
+        axis: 'y',
+        label: 'Stats',
+        display: false,
+        data: [1, 2, 4.5, 1.5],
+  //      borderColor: "#C70039",
+        fill: false,
+        backgroundColor: ["#FFFFFF","#6ECCFF","#458EC3","#27487C"],
+      }]
+  };
+  const options = {
+      indexAxis: 'y',
+      // Elements options apply to all of the options unless overridden in a dataset
+      // In this case, we are setting the border of each horizontal bar to be 2px wide
+      elements: {
+        bar: {
+          borderWidth: 2,
         }
-      }
-  })
-  return bioChart;
-}
-
-
-
-// Dynamically creates a chart sleep data (Hypno, Asleep) added on the to the DOM element passed in
-// Returns a ref to the chart object so that it can be cleaned up
-function CreateSleepRecordsChart(chartContainerID, titleText, startTime, endTime, inBedData, asleepData) {
-console.log("CreateSleepRecordChart with Start/End=" + startTime + "-" + endTime);
-console.log("CreateSleepRecordChart with InBedData=" + JSON.stringify(inBedData));
-console.log("CreateSleepRecordChart with AsleepData=" + JSON.stringify(asleepData));
-
-
-  var newChartElID = "sleepRecordsChart" + Math.random()*10;
-  var chartsHTML = document.getElementById(chartContainerID);
-  var newHTMLbuf = [];
-
-  // Dynamically append HTML to the 'chartContainerID' DOM element that 
-  // creates a div wrapper around a chart element with ID 'newchartElID'
-  newHTMLbuf += "<div class='sleep_record_container'";
-  newHTMLbuf += " style='height: 150px'>";
-  newHTMLbuf +=   "<canvas id='" + newChartElID + "'></canvas>"; 
-  newHTMLbuf += "</div>";
-
- // Tack on a line of stats
- newHTMLbuf += "<div class='text-center' style='background-color: #F5F4F8'>";
- newHTMLbuf += "<small># InBed Records: " + ((inBedData.length)/2 - 1);  // to compensate for the doubled # of points and the added endpoint
- newHTMLbuf += "&nbsp &nbsp &nbsp &nbsp &nbsp# Asleep Records: " + asleepData.length;
-// Display InBed Rec Data
- //newHTMLbuf += "<br>"
- //inBedData.forEach((rec, i) => { if (i>0 && i<inBedData.length-1) newHTMLbuf += "[" + new Date(rec.x).toLocaleTimeString() + "] "});
- // Display Asleep Rec Data
- //newHTMLbuf += "<br>"
- //asleepData.forEach((rec, i) => { newHTMLbuf += "[" + new Date(rec.startdate).toLocaleTimeString() + " - " + new Date(rec.enddate).toLocaleTimeString() + "] "});
-
- newHTMLbuf += "</small></div><br>";
-
- // Marshall the asleepData records
- var newSleepData = [{x: startTime, y: 2}];   // Seed the new Marshalled Sleep Record array with an "awake" point
- asleepData.forEach((rec, i) => { newSleepData.push({x: rec.startdate, y: 1}); 
-                                  newSleepData.push({x: rec.enddate, y: 2}) });
- newSleepData.push({x: endTime, y: 2});   // Postfix the Marshalled Sleep Record array with an "awake" point
-
-  chartsHTML.innerHTML += newHTMLbuf;   // Append the new HTML
-  console.log("Creating new Chart='" + newChartElID + "'");
-  var ctx = document.getElementById(newChartElID).getContext('2d');
-  const sleepRecordsChart = new Chart(ctx, {
-    data: {
-        datasets: [{
-            type: 'line',
-            label: 'Sleep Records',
-            yAxisID: 'SleepRecs',
-            stepped: 'true',
-            borderColor: "#B6BABB",
-            borderWidth : 3,
-            fill: false,
-            radius: 0,
-            data : newSleepData,
-            animations: {
-              tension: {
-                duration: 1000,
-                easing: 'linear',
-                from: 1,
-                to: -0.25,
-                loop: true,
-              }
-            }
-          },{ 
-            type: 'line',
-            label: 'Inbed Records',
-            yAxisID: 'InbedRecs',
-            stepped: true,
-            borderColor: '#000080',
-            borderWidth : 3,
-            fill: false,
-            radius: 0,
-            data : inBedData,
-          }, { 
-            type: 'line',
-            yAxisID: 'SleepRecs',
-            stepped: true,
-            borderColor: '#000080',
-//             backgroundColor: '#000080',	
-            borderWidth : 3,
-            fill: false,
-            radius: 0,
-            data : inBedData,
-          }],
       },
-      options: {
-        layout: {
-          padding: {
-              right: 12,
-              left: 7,
-          }
+      layout: {
+        padding: {
+            right: 25,
+            left: 20,
+        }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
         },
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend : {
-            display: false,
-          },
-          title: {
-            display: true,
-            text: titleText,
-            font : { size: 18},
-          }
-        },
-          scales: {
-            x: {
-              display: true,
-              type: 'time',
-              time: {
-                unit: 'hour',  
-                displayFormats: {
-                  hour: 'h a'
-                }
-              }, 
-              min: startTime,
-              max: endTime,
-            },
-            SleepRecs: {
-              type: 'linear',
-              display: true,
-              title: {
-                display : true,
-                text : 'Sleep Recs',
-                font : { size: 18},
-              },
-              position: 'left',
-              min: 0,
-              max: 6,
-              
-              ticks: {
-                beginAtZero: true,
-                min: 0,
-                max: 6,
-                stepSize: 1,
-                callback: function(label, index, labels) {
-                  switch (label) {
-                    case 0:
-                      return '';
-                    case 1:
-                      return 'SLEEP';
-                    case 2:
-                      return 'WAKE';
+        title: {
+          display: false,
+          text: 'Stats Bar Chart'
+        }
+    },
+  };
 
-                  }
-                }
-              }
-
-            },
-            InbedRecs: {
-              type: 'linear',
-              display: true,
-              title: {
-                display : true,
-                text : 'InBed Recs',
-                font : { size: 18},
-              },
-              position: 'right',
-              min: 0,
-              max: 6,
-              grid: {
-              drawOnChartArea: true, // only want the grid lines for one axis to show up
-              },
-
-              ticks: {
-                beginAtZero: true,
-                min: 0,
-                max: 6,
-                stepSize: 1,
-                callback: function(label, index, labels) {
-                  switch (label) {
-                    case 4:
-                      return 'INBED';
-                    case 5:
-                      return ' UP';
-                  }
-                }
-              }
-
-            }
-          }
-      }
-  })
-  return sleepRecordsChart;
+  var ctx = document.getElementById(newChartElID).getContext('2d');
+  const statsChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options,
+  });
+  return(statsChart);
 }
+/*
+
+
+
+
+
+
+    data: {
+          datasets: [{
+              type: 'bar',
+              label: 'Stats',
+              yAxisID: 'y',
+              borderColor: '#C70039',	
+//              backgroundColor: '#C70039',	
+              data : statsData,
+            }],
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend : {
+              display: false,
+            },
+            title: {
+              display: true,
+              text: titleText,
+              font : { size: 18},
+            }
+          },
+ //         scales: {
+//            x: {
+//              display: true,
+//              type: 'time',
+//              bounds: 'data',
+//              min: startTime,
+//              max: endTime,
+//              time: {
+//                unit: 'hour',  
+//                displayFormats: {
+//                  hour: 'h a'
+//                },
+//              },
+//            }      
+//          }
+        }
+    });
+    return statsChart;
+  }
+*/
+
 
 // Helper Functions
 

@@ -313,8 +313,10 @@ function DisplayAnalysis() {
     <div class="answer-heading">HYPNOGRAM</div>  \
     <hr> \
     <div class="answer-subheading">A <b>Hypnogram</b> is the graph of time and sleep states most used by sleep researchers. </div> \
-    <div id="hypno-container"> \
-    </div> \
+    <div id="hypno-container">  </div> \
+    <hr> \
+    <div class="answer-subheading">A <b>Sleep Stats</b> are the totals of each type of sleep you achieved. </div> \
+    <div id="stats-container"> </div> \
     </section> ';
 
     // Stats
@@ -410,7 +412,9 @@ console.log("Synthesizing Hypno from Survey (AGE, START, END)=(" + age + "," + o
     const sleepArch = SynthHypno(onsetTime.getTime(), wakeTime.getTime(), age);
 console.log("Synthesized " + JSON.parse(sleepArch.hypno).length + " new Hypno States");
 console.log("Synthesized Hypno =" + JSON.stringify(sleepArch.hypno));
-    CreateHypnoChart('hypno-container', "Age " + age + "-Based Sleep Architecture Estimate", onsetTime, wakeTime, sleepArch);
+    CreateHypnoChart('hypno-container', "Age " + age + "-Based Sleep Architecture", onsetTime, wakeTime, sleepArch);
+    CreateStatsChart('stats-container', "Age " + age + "-Based Sleep Architecture", onsetTime, wakeTime, sleepArch);
+
 }
 
 // Takes a military time and a dayOffset (0==today) and returns a Date Object 
