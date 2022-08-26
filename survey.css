@@ -17,7 +17,7 @@ hr {
 }
 
 a:link {
-  color: #a4e5ee;
+  color: #068ab2;
   text-decoration: underline;
 }
 
@@ -73,6 +73,22 @@ button {
   font-size: 3em;
   width: 90%; /* Full-width */
   text-align: center;
+}
+
+.hypno-awake {
+  color: #ffffffe4;
+}
+.hypno-rem {
+  color: #a39cf0;
+}
+.hypno-light {
+  color: #4f85e2;
+}
+.hypno-deep {
+  color: #1601ffba;
+}
+.hypno-none {
+  color: #7e7e7eb8;
 }
 
 .answer-subheading {

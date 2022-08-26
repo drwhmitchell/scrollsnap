@@ -18,19 +18,46 @@ function marshallSleepNetHypno(hypno) {
   return(newHypno);
 }
 
+/*
 function getLineColor(ctx) {
   const index = ctx.dataIndex;
+//if (index === undefined) return("#FFFFFF");
+
 const lineColor = index %2 ? "#6fdcea" : "#FFFFFF";
 console.log("GetLineColor [" + index + "] == " + lineColor);
-
   return (lineColor);
 }
+*/
 
 function getLineWidth(ctx) {
-  const index = ctx.dataIndex;
-const lineWidth = index %2 ? 1 : 4;
 
+  const index = ctx.dataIndex;
+console.log("GetLineWidth(" + index + ")");
+
+const lineWidth = index %2 ? 1 : 4;
+  ctx.lineWidth = lineWidth;
   return (lineWidth);
+}
+
+function getLineColor(ctx) {
+  console.log("Entering GetLineColor");
+
+  const index = ctx.datasetIndex;
+  if (index == undefined) return("#FFFFFF");
+  
+  const lineColor = index %2 ? "#6fdcea" : "#FFFFFF";
+  console.log("GetLineColor [" + index + "] == " + lineColor);
+    return (lineColor);
+};
+
+function DeStepHypno(hypno) {
+  var newHypno = [];
+  var len = hypno.length;
+  for (i=0; i<len-1; i++) {
+    newHypno.push({x: hypno[i].x, y: hypno[i].y});
+    newHypno.push({x: hypno[i+1].x, y: hypno[i].y});  // Artificial segment
+  }
+  return(newHypno);
 }
 
 // Dynamically creates a chart sleep data (Hypno, Asleep) added on the to the DOM element passed in
@@ -39,10 +66,48 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
   console.log("CreateHypnoChart with Start/End=" + startTime + "-" + endTime);
   console.log("HYPNO DATA =" + sleepArch.hypno);
   var hypnoData = marshallSleepNetHypno(JSON.parse(sleepArch.hypno));
+  var deSteppedData = DeStepHypno(hypnoData);
+  console.log("DE-STEPPED DATA =" + JSON.stringify(deSteppedData));
   var newChartElID = "sleepBioChart" + Math.random()*10;
 
   var chartsHTML = document.getElementById(chartContainerID);
   var newHTMLbuf = [];
+
+ // const skipped = (ctx, value) => {console.log("Skipped (" + ctx.p0.parsed.y + "," + ctx.p1.parsed.y + ")"); return(ctx.p0.skip || ctx.p1.skip ? value : undefined);};
+  const down = (ctx, value) => {ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined};
+
+  const skipped = (ctx, value) => {
+    console.log("Segment (" + ctx.p0.parsed.x + "," + ctx.p0.parsed.y + ")"); 
+    console.log("TO (" + ctx.p1.parsed.x + "," + ctx.p1.parsed.y + ") "); 
+
+    if (ctx.p0.parsed.x == ctx.p1.parsed.x) 
+      return('#7e7e7eb8'); // gray for the vertical segments
+
+    else {
+      switch (ctx.p0.parsed.y) {
+      case 0:
+        return '#000000';
+      case 1:   // Deep
+        return '#1601ffba';
+      case 2:   // Light
+        return '#4f85e2';
+       case 3:  // REM
+        return '#6fdcea';
+      case 4:  // Wake
+        return '#ffffffe4';
+      }
+    }
+    return("#afb3bd");
+  }
+
+  const bw = (ctx) => {
+    if (ctx.p0.parsed.x == ctx.p1.parsed.x) 
+      return(3); // thin line for verticals
+    else 
+      return(10);
+  }
+
+
 
   if (titleText === 'SleepSignal_Hypno') titleText = 'DeepSleep AppleWatch';
   // Dynamically append HTML to the 'chartContainerID' DOM element that 
@@ -75,16 +140,22 @@ console.log("Hypno Data = " + JSON.stringify(hypnoData));
             type: 'line',
             label: 'Sleep State',
             yAxisID: 'SleepState',
-            stepped: true,
+            segment: {
+//                borderColor: getLineColor(ctx),
+              borderColor: ctx => skipped(ctx, '#6fdcea') || down(ctx, 'rgb(192,75,75)'),
+              borderWidth: ctx => bw(ctx),
+//              borderDash: ctx => skipped(ctx, [6, 6]),
+            },
+//            stepped: true,
 //            borderColor: "#B6BABB",
-            borderColor: getLineColor,
-            backgroundColor: getLineColor,
+//            borderColor: getLineColor(),
+//            backgroundColor: getLineColor,
 
-            borderWidth : getLineWidth,
+            borderWidth : getLineWidth(ctx),
 
             fill: false,
             radius: 0,
-            data : hypnoData,
+            data : deSteppedData,
 //            animations: {
 //              tension: {
 //                duration: 1000,
@@ -169,12 +240,14 @@ right: 25,
                   case 0:
                     return '';
                   case 1:
+                    color : '#a39cf0'
                     return 'DEEP';
                   case 2:
                     return 'LIGHT';
                    case 3:
                     return 'REM';
                   case 4:
+                    label.color = '#FFFFFF';
                     return 'WAKE';
                 }
               }

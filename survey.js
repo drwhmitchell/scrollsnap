@@ -408,37 +408,9 @@ function ClassicSurveySynth(surveyObject) {
     const age = surveyObject[AGEQ].answer;
 console.log("Synthesizing Hypno from Survey (AGE, START, END)=(" + age + "," + onsetTime.toLocaleTimeString() + "," + wakeTime.toLocaleTimeString());
     const sleepArch = SynthHypno(onsetTime.getTime(), wakeTime.getTime(), age);
-console.log("Synthesized " + sleepArch.hypno.length + " new Hypno States");
+console.log("Synthesized " + JSON.parse(sleepArch.hypno).length + " new Hypno States");
+console.log("Synthesized Hypno =" + JSON.stringify(sleepArch.hypno));
     CreateHypnoChart('hypno-container', "Age " + age + "-Based Sleep Architecture Estimate", onsetTime, wakeTime, sleepArch);
-
-
-    /*
-var startDateObj = new Date();
- // subtract one day from current time                          
-startDateObj.setDate(startDateObj.getDate() - 1); 
-console.log("YESTERDAY DATE = " + startDateObj);
-
-var h = Math.floor(surveyObject[ONSETQ].answer/100);
-var m = surveyObject[ONSETQ].answer - (h * 100);
-
- startDateObj.setHours(h, m);
-console.log("BETTER StartDate = " + startDateObj);
-
-    var startStrs = onsetTimeStr.split(":");
-    
-var onsetSuffix = suffix(surveyObject[ONSETQ].answer);
-console.log("Suffix is: '" + onsetSuffix + "'");
-    const startTime = LastNight(parseInt(startStrs[0]), onsetSuffix, parseInt(startStrs[1]));
-
-    var endStrs = wakeTimeStr.split(":");
-    const endTime = ThisMorning(parseInt(endStrs[0]), parseInt(endStrs[1]));
-    const age = surveyObject[AGEQ].answer;
-  
-    sleepArch = SynthHypno(startTime, endTime, age);
-    console.log("Synthesized Hypno = " + sleepArch.hypno);
-
-    CreateHypnoChart('hypno-container', "Age " + age + "-Based Sleep Architecture Estimate", startTime, endTime, sleepArch);
-*/
 }
 
 // Takes a military time and a dayOffset (0==today) and returns a Date Object 
