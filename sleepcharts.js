@@ -81,20 +81,20 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
     console.log("TO (" + ctx.p1.parsed.x + "," + ctx.p1.parsed.y + ") "); 
 
     if (ctx.p0.parsed.x == ctx.p1.parsed.x) 
-      return('#7e7e7eb8'); // gray for the vertical segments
+      return('#458EC3'); // gray for the vertical segments
 
     else {
       switch (ctx.p0.parsed.y) {
       case 0:
         return '#000000';
       case 1:   // Deep
-        return '#1601ffba';
+        return '#27487C';
       case 2:   // Light
-        return '#4f85e2';
+        return '#458EC3';
        case 3:  // REM
-        return '#6fdcea';
+        return '#6ECCFF';
       case 4:  // Wake
-        return '#ffffffe4';
+        return '#F2F4F6';
       }
     }
     return("#afb3bd");
@@ -102,9 +102,9 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
 
   const bw = (ctx) => {
     if (ctx.p0.parsed.x == ctx.p1.parsed.x) 
-      return(3); // thin line for verticals
+      return(2); // thin line for verticals
     else 
-      return(10);
+      return(15);
   }
 
 

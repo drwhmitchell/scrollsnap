@@ -76,16 +76,16 @@ button {
 }
 
 .hypno-awake {
-  color: #ffffffe4;
+  color: #F2F4F6;
 }
 .hypno-rem {
-  color: #a39cf0;
+  color: #6ECCFF;
 }
 .hypno-light {
-  color: #4f85e2;
+  color: #458EC3;
 }
 .hypno-deep {
-  color: #1601ffba;
+  color: #27487C;
 }
 .hypno-none {
   color: #7e7e7eb8;
