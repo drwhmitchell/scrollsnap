@@ -63,6 +63,10 @@ function DeStepHypno(hypno) {
 // Dynamically creates a chart sleep data (Hypno, Asleep) added on the to the DOM element passed in
 // Returns a ref to the chart object so that it can be cleaned up
 function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleepArch) {
+  const oldstateColors = ["#FFFFFF","#6ECCFF","#458EC3","#27487C"];
+  const stateColors = ["#FFFFFF", "#27487C","#458EC3","#6ECCFF","#FFFFFF"];
+ // const hypnoState = ["Catatonic","Deep", "Light", "REM", "Wake"];
+
   console.log("CreateHypnoChart with Start/End=" + startTime + "-" + endTime);
   console.log("HYPNO DATA =" + sleepArch.hypno);
   var hypnoData = marshallSleepNetHypno(JSON.parse(sleepArch.hypno));
@@ -84,6 +88,8 @@ function CreateHypnoChart(chartContainerID, titleText, startTime, endTime, sleep
       return('#458EC3'); // gray for the vertical segments
 
     else {
+ //     return(stateColors[ctx.p0.parsed.y]);
+ //   }
       switch (ctx.p0.parsed.y) {
       case 0:
         return '#000000';
@@ -201,8 +207,9 @@ right: 25,
         },
         scales: {
           x: {
+
             grid : {
-              borderColor: '#a39cf0',
+              borderColor: '#F2F4F6',
             },
             min: startTime,
             max: endTime,
@@ -215,7 +222,7 @@ right: 25,
               }
             },
             ticks: {
-              color : '#a39cf0',
+              color : '#F2F4F6',
             }
           },
           SleepState: {
@@ -230,7 +237,7 @@ right: 25,
             min: 0,
             max: 5,
             ticks: {
-              color : '#a39cf0',
+              color : stateColors,
               beginAtZero: true,
               min: 0,
               max: 5,
@@ -240,14 +247,12 @@ right: 25,
                   case 0:
                     return '';
                   case 1:
-                    color : '#a39cf0'
                     return 'DEEP';
                   case 2:
                     return 'LIGHT';
                    case 3:
                     return 'REM';
                   case 4:
-                    label.color = '#FFFFFF';
                     return 'WAKE';
                 }
               }
@@ -268,11 +273,12 @@ function CalcStatsData(hypno) {
 function CreateStatsChart(chartContainerID, titleText, startTime, endTime, sleepArch) {
   console.log("Creating STATS CHART with Start/End=" + new Date(startTime).toLocaleTimeString() + "-" + new Date(endTime).toLocaleTimeString());
   
+  const stateColors = ["#FFFFFF","#6ECCFF","#458EC3","#27487C"];
   var statsData = CalcStatsData(sleepArch.hypno);
   var chartsHTML = document.getElementById(chartContainerID);
   var newHTMLbuf = [];
   var newChartElID = chartContainerID + "-canvas";
-  newHTMLbuf += "<canvas id='" + newChartElID + "' style='width:400px'></canvas>";
+  newHTMLbuf += "<canvas id='" + newChartElID + "' style='width:400px; height:125px;'></canvas>";
   console.log("STATS Chart container='" + chartContainerID + "'");
   newHTMLbuf += "<hr>Stats Chart";
   chartsHTML.innerHTML += newHTMLbuf;   // Append the new HTML
@@ -282,29 +288,55 @@ function CreateStatsChart(chartContainerID, titleText, startTime, endTime, sleep
     labels: ["WAKE", "REM", "LIGHT", "DEEP"],
     datasets: [
       {
+        categoryPercentage: 1.0,
+        barPercentage: 1.0,
         axis: 'y',
         label: 'Stats',
         display: false,
         data: [1, 2, 4.5, 1.5],
   //      borderColor: "#C70039",
         fill: false,
-        backgroundColor: ["#FFFFFF","#6ECCFF","#458EC3","#27487C"],
+        backgroundColor: stateColors,
       }]
   };
   const options = {
       indexAxis: 'y',
+      barThickness: 'flex',
+      maxBarThickness: 20,
+
+   //   barThickness: 15,
+
       // Elements options apply to all of the options unless overridden in a dataset
       // In this case, we are setting the border of each horizontal bar to be 2px wide
       elements: {
         bar: {
           borderWidth: 2,
-        }
+        },
       },
       layout: {
         padding: {
             right: 25,
             left: 20,
         }
+      },
+      scales: {
+        x: {
+          display: false,
+          ticks: {
+            },
+        },
+        y: {
+
+          display: true,
+          ticks: {
+            callback: function(val, index) {
+              // Hide every 2nd tick label
+              return this.getLabelForValue(val);
+//              return index % 2 === 0 ? this.getLabelForValue(val) : '';
+            },
+            color: stateColors,
+          },
+        },
       },
       responsive: true,
       plugins: {
@@ -315,8 +347,8 @@ function CreateStatsChart(chartContainerID, titleText, startTime, endTime, sleep
           display: false,
           text: 'Stats Bar Chart'
         }
-    },
-  };
+      },
+    };
 
   var ctx = document.getElementById(newChartElID).getContext('2d');
   const statsChart = new Chart(ctx, {

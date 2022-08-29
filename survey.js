@@ -315,7 +315,7 @@ function DisplayAnalysis() {
     <div class="answer-subheading">A <b>Hypnogram</b> is the graph of time and sleep states most used by sleep researchers. </div> \
     <div id="hypno-container">  </div> \
     <hr> \
-    <div class="answer-subheading">A <b>Sleep Stats</b> are the totals of each type of sleep you achieved. </div> \
+    <div class="answer-subheading"><b>Sleep Stats</b> are the totals for each type of sleep you achieved. </div> \
     <div id="stats-container"> </div> \
     </section> ';
 
