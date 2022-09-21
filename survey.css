@@ -44,6 +44,9 @@ button {
   padding-top: 25%;
   scroll-snap-align: start;
   background-color: #000000;
+    
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .answer-section {
