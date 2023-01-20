@@ -191,7 +191,7 @@ function RunSurvey(surveyNum) {
 addedStyling = "";
 backgroundStyle = "background-image:";
 completeSection = "<section class='section' id='section-" + i + offset + "' style='" + backgroundStyle + " url(\"img/" + allSurveys[surveyNum].survey[i].backImage + "\")" + addedStyling + "'><div class='question'>";
-completeSection += "<div>Did You Know...?"
+completeSection += "<div>Learn More"
 switch (i) {
     case 0 : 
 completeSection += "<p class='insight'>Your sleep is age-related</p>"
