@@ -70,6 +70,22 @@ button {
   text-align: center;
 }
 
+.insight {
+  color: #cac6f6;
+  font-family: Nunito, sans-serif;
+  font-size: 1em;
+  width: 90%; /* Full-width */
+  text-align: center;
+}
+
+.explain {
+  color: #94f0fc;
+  font-family: Nunito, sans-serif;
+  font-size: 0.5em;
+  width: 90%; /* Full-width */
+  text-align: center;
+}
+
 .answer-heading {
   color: #a39cf0;
   font-family: Nunito, sans-serif;

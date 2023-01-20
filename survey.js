@@ -14,10 +14,11 @@ const FALSE = 0;
 const TRUE = 1;
 var gSurveyNum = 0;
 var gSurveyQuestion = 0;  
+
 const allSurveys = [
                     {name: "Classic", computeFcn: defaultComputeFcn, survey: [
-                        {question: "What is your AGE?", focus:"AGE", imageMode: STATIC, backImage: "survey1.png", type: YEARS, typeLabel: 'years', min: 10, max:90, step:10, default:50, answer:50, validator: dummyValidator, warpFcn: dummyWarpFcn},
-                        {question: "When did you fall ASLEEP?", focus:"ASLEEP", imageMode: STATIC, backImage: "survey2.png", type: TIME, typeLabel: '', min: 100, max:2400, step:100,default:2100, answer:2100, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "What is your AGE?", focus:"AGE", imageMode: STATIC, backImage: "survey1.png", type: YEARS, typeLabel: 'years', min: 18, max:80, step:1, default:50, answer:50, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "When did you go TO BED?", focus:"TO BED", imageMode: STATIC, backImage: "survey2.png", type: TIME, typeLabel: '', min: 2000, max:2400, step:100,default:2300, answer:2100, validator: dummyValidator, warpFcn: dummyWarpFcn},
                         {question: "When did you ARISE?", focus:"ARISE", imageMode: STATIC, backImage: "survey3.png", type: TIME, typeLabel: '',min: 100, max:2400, step:100,default:600, answer:600, validator: dummyValidator, warpFcn: dummyWarpFcn},
                         {question: "How many DREAMS did you have?", focus:"DREAMS", imageMode: STATIC, backImage: "survey6.png", type: NUMBER, typeLabel: '', min: 0, max:5, step:1,default:1, answer:1, validator: dummyValidator, warpFcn: dummyWarpFcn},
                         {question: "How many times did you WAKE?", focus:"WAKE", imageMode: STATIC, backImage: "survey4.png",  type: NUMBER, typeLabel: '', min: 0, max:10, step:1,default:3, answer:3, validator: dummyValidator, warpFcn: dummyWarpFcn},
@@ -183,9 +184,29 @@ function RunSurvey(surveyNum) {
         completeSection += '<div class="answer" id="answer-' + i + offset + '">' + TranslateType(allSurveys[surveyNum].survey[i].type, allSurveys[surveyNum].survey[i].default, FALSE) + '</div>';
         completeSection += '<input class="slider" type="range" name "" list="tickList" value="' + allSurveys[surveyNum].survey[i].default + '" min="' + allSurveys[surveyNum].survey[i].min + '" max="' + allSurveys[surveyNum].survey[i].max + '" onChange="rangeSlide(\'answer-' + i + offset + '\', this.value, ' + i + ')" oninput="rangeSlide(\'answer-' + i + offset + '\', this.value,' +  i + ')"></Input>';
         completeSection += GenScale(allSurveys[surveyNum].survey[i].min, allSurveys[surveyNum].survey[i].max, allSurveys[surveyNum].survey[i].step, allSurveys[surveyNum].survey[i].type, allSurveys[surveyNum].survey[i].default);
-
         completeSection += "</section>";  // complete survey question
         buf += completeSection;
+
+// Now hack in the Explanation portion of the survey
+addedStyling = "";
+backgroundStyle = "background-image:";
+completeSection = "<section class='section' id='section-" + i + offset + "' style='" + backgroundStyle + " url(\"img/" + allSurveys[surveyNum].survey[i].backImage + "\")" + addedStyling + "'><div class='question'>";
+completeSection += "<div>Did You Know...?"
+switch (i) {
+    case 0 : 
+completeSection += "<p class='insight'>Your sleep is age-related</p>"
+completeSection += "<p class='explain'>The amount and types of sleep you get varies with age (Sleep. 2004; 27-7) That's why we start with age in creating an estimate of your sleep architecture</p>"
+completeSection += "<img src='img/sleep-age.png' width=350></div>";
+    break;
+    default :
+completeSection += "<p class='insight'>Great Sleep is Circadian</p>"
+completeSection += "<p class='explain'>Getting to bed between 9 and 11pm helps synchronize your body's circadian rythm with the 24 hour rotation of the earth, allowing natural sleep pressure through melatonin release to aid your sleep onset.</p>"
+completeSection += "</div>";
+}
+completeSection += "</section>";  // complete survey question
+buf += completeSection;
+
+
     }
     quizEl.innerHTML = buf;
 
