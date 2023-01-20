@@ -195,7 +195,7 @@ completeSection += "<div>Learn More"
 switch (i) {
     case 0 : 
 completeSection += "<p class='insight'>Your sleep is age-related</p>"
-completeSection += "<p class='explain'>The amount and types of sleep you get varies with age (Sleep. 2004; 27-7) That's why we start with age in creating an estimate of your sleep architecture</p>"
+completeSection += "<p class='explain'>The amount and types of sleep you get varies with age (Sleep. 2004; 27-7)</p>"
 completeSection += "<img src='img/sleep-age.png' width=350></div>";
     break;
     default :
