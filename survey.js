@@ -6,9 +6,10 @@ const STATIC = 0;       // whether the background images in the survey are stati
 const DYNAMIC = 1;
 // Types of survey question answers
 const NUMBER = 0;
-const YEARS = 1;
-const TIME = 2;
-const MINUTES = 3;
+const TIME = 1;
+const YEARS = 2;
+const HOURS = 3;
+const MINUTES = 4;
 // Booleans
 const FALSE = 0;
 const TRUE = 1;
@@ -51,6 +52,18 @@ const allSurveys = [
                     {name: "Basic", computeFcn: defaultComputeFcn, survey: [         
                         {question: "How good do you FEEL?", focus:"FEEL", imageMode: STATIC,backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, validator: dummyValidator, warpFcn: dummyWarpFcn},
                         {question: "What's your overall SLEEP RATING?", focus:"SLEEP RATING", imageMode: STATIC, backImage: "survey-generic.png", min: 0, max:10, default:5, answer:5, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                    ]},
+                    {name: "New", computeFcn: defaultComputeFcn, survey: [
+                        {question: "What is your AGE?", focus:"AGE", imageMode: STATIC, backImage: "survey1.png", type: YEARS, typeLabel: 'years', min: 18, max:80, step:1, default:50, answer:50, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "How many hours before sleeping was your LAST MEAL?", focus:"LAST MEAL", imageMode: STATIC, backImage: "food.png", type: HOURS, typeLabel: 'hours', min: 0, max:8, step:1,default:2, answer:2, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "How many CAFFIENATED DRINKS did you have after noon", focus:"CAFFIENATED DRINKS", imageMode: STATIC, backImage: "caffiene.png", type: NUMBER, typeLabel: 'drinks', min: 0, max:4, step:1, default:1, answer:1, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "How many ALCOHOLIC DRINKS did you have last night?", focus:"ALCOHOLIC DRINKS", imageMode: STATIC, backImage: "drinks.png", type: NUMBER, typeLabel: 'drinks', min: 0, max:4, step:1, default:1, answer:1, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "When did you go TO BED?", focus:"TO BED", imageMode: STATIC, backImage: "survey2.png", type: TIME, typeLabel: '', min: 2000, max:2400, step:100,default:2300, answer:2100, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "How long did it take for you to FALL ASLEEP?", focus:"FALL ASLEEP", imageMode: STATIC, backImage: "survey2.png", type: MINUTES, typeLabel: 'mins',min: 0, max:60, step:1,default:10, answer:10, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "How many times did you WAKE UP at night?", focus:"WAKE UP", imageMode: STATIC, backImage: "survey4.png",  type: NUMBER, typeLabel: 'Times', min: 0, max:10, step:1,default:3, answer:3, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "How long did you STAY AWAKE?", focus:"STAY AWAKE", imageMode: STATIC, backImage: "survey5.png",  type: MINUTES, typeLabel: 'minutes',min: 0, max:60, step:1,default:30, answer:7, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "When did you ARISE?", focus:"ARISE", imageMode: STATIC, backImage: "survey3.png", type: TIME, typeLabel: '',min: 200, max:1200, step:100,default:600, answer:600, validator: dummyValidator, warpFcn: dummyWarpFcn},
+                        {question: "How TIRED were you when you awoke?", focus:"TIRED", imageMode: STATIC, backImage: "survey9.png", type: NUMBER, typeLabel: 'relative scale', min: 0, max:10, step:1,default:5, answer:5, validator: dummyValidator, warpFcn: dummyWarpFcn},
                     ]},
                 ];
 
@@ -125,6 +138,7 @@ function TranslateType(type, value, shortFlag) {
     switch (type) {
         case YEARS : return(shortFlag ? value : value + " Years");
         case MINUTES : return(shortFlag ? value : value + " Minutes");
+        case HOURS : return(shortFlag ? value : value + " Hours");
         case TIME : return MilitaryTimeTranslate(value, shortFlag);
     }
     return value;
@@ -188,6 +202,7 @@ function RunSurvey(surveyNum) {
         buf += completeSection;
 
 // Now hack in the Explanation portion of the survey
+/* OMIT FOR NOW!!!!!
 addedStyling = "";
 backgroundStyle = "background-image:";
 completeSection = "<section class='section' id='section-" + i + offset + "' style='" + backgroundStyle + " url(\"img/" + allSurveys[surveyNum].survey[i].backImage + "\")" + addedStyling + "'><div class='question'>";
@@ -205,7 +220,7 @@ completeSection += "</div>";
 }
 completeSection += "</section>";  // complete survey question
 buf += completeSection;
-
+*/
 
     }
     quizEl.innerHTML = buf;
